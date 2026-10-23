@@ -61,7 +61,7 @@ mixed(d,y,[('O que ',False),('já vivemos',True),(' aqui',False)],70); y+=90
 ctext(d,y,'Lo que ya vivimos  ·  What we already lived',SANS(24,500),MUTED); y+=90
 items=[('12.07.2025','Fan Meeting · São Paulo','The Boy Next World: Boss&Noeul · Studio Stage'),
        ('10.10.2026','Fan Meeting in Brazil · São Paulo','Carioca Club Pinheiros'),
-       ('OUT · 2026','Crazy Love Lunch','almoço exclusivo · 60 fãs · Hi-Bye, selfie e conversa')]
+       ('11.10.2026','Crazy Love Lunch','churrasco coreano com eles · 60 fãs · conversa a sós, selfie e Hi-Bye')]
 for dt,t,s in items:
     d.rounded_rectangle([90,y,W-90,y+150],18,fill=(48,30,58),outline=(90,55,100),width=2)
     d.rounded_rectangle([90,y,100,y+150],4,fill=MAG)
