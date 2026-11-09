@@ -1,0 +1,177 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta property="og:title" content="Narna Catch 🦦"><meta property="og:description" content="Help the Narna otter catch fish!"><title>Narna Catch</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
+<style>
+/* Layout: one-screen arcade — sky band, sea band, otter at the waterline; HUD floats top; overlays for start/over. Single light "sea" look by choice. */
+:root{
+  --sky-top:#EAF4FB; --sky-bot:#FFFFFF; --sea:#7FB7DF; --sea-deep:#3F79B6;
+  --ink:#2F4A6B; --soft:#7D8DA3; --card:#FFFFFF; --line:#D6E1EC; --pink:#F06292; --gold:#F2B33D;
+  --display:"Fredoka", "Baloo 2", "Nunito", ui-rounded, system-ui, sans-serif;
+  color-scheme: light;
+}
+html,body{height:100%}
+[hidden]{display:none!important}
+body{margin:0;background:var(--sky-top);color:var(--ink);font-family:var(--display);overflow:hidden;
+  padding-left:max(0px, env(safe-area-inset-left,0px));padding-right:max(0px, env(safe-area-inset-right,0px));
+  -webkit-user-select:none;user-select:none;touch-action:none}
+#wrap{position:relative;height:100%;max-width:560px;margin:0 auto}
+canvas{display:block;width:100%;height:100%}
+.hud{position:absolute;top:calc(10px + env(safe-area-inset-top,0px));left:max(16px, env(safe-area-inset-left,0px));right:max(16px, env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:center;pointer-events:none;font-weight:700}
+.pill{background:var(--card);border:3px solid var(--line);border-radius:999px;padding:6px 16px;font-size:20px;box-shadow:0 4px 0 var(--line);font-variant-numeric:tabular-nums}
+.lives{letter-spacing:2px;color:var(--pink)}
+.ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(234,244,251,.72);backdrop-filter:blur(2px)}
+.box{background:var(--card);border:4px solid var(--line);border-radius:28px;box-shadow:0 8px 0 var(--line);padding:26px 22px;max-width:380px;width:100%;text-align:center}
+h1{margin:0;font-size:52px;line-height:1;color:#fff;-webkit-text-stroke:7px #9FB3CB;paint-order:stroke fill;letter-spacing:2px;text-wrap:balance}
+.sub{margin:10px 0 16px;color:var(--soft);font-weight:500;font-size:17px;line-height:1.35}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 18px;font-size:15px;font-weight:600;color:var(--ink);text-align:left}
+.legend div{background:#F4F8FC;border-radius:14px;padding:8px 10px}
+button{font-family:var(--display);font-weight:700;font-size:22px;border:0;border-radius:999px;padding:12px 30px;background:var(--sea-deep);color:#fff;box-shadow:0 5px 0 #2C5C8F;cursor:pointer}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+button.ghost{background:#EEF3F8;color:var(--ink);box-shadow:0 5px 0 var(--line);font-size:16px;padding:10px 18px;margin-top:12px}
+.big{font-size:64px;font-weight:700;color:var(--sea-deep);line-height:1;font-variant-numeric:tabular-nums}
+.best{color:var(--soft);font-weight:600;margin:6px 0 16px}
+.msg{min-height:20px;font-size:14px;color:var(--soft);margin-top:8px}
+.foot{margin-top:14px;font-size:12px;letter-spacing:2px;color:#A8B6C7;font-weight:600}
+</style></head><body>
+
+<div id="wrap">
+  <canvas id="c" aria-label="Narna Catch game"></canvas>
+  <div class="hud" id="hud" hidden><span class="pill" id="score">🐟 0</span><span class="pill lives" id="lives">♥♥♥</span></div>
+
+  <div class="ov" id="start">
+    <div class="box">
+      <h1>NARNA<br>CATCH</h1>
+      <p class="sub">Help the little otter catch fish! Drag, tap the sides or use the arrow keys to swim.</p>
+      <div class="legend">
+        <div>🐟 Fish +1</div><div>🐠 Golden fish +5</div>
+        <div>🐚 Shell +2</div><div>🦀 Crab: lose a heart</div>
+      </div>
+      <button id="play">Play</button>
+      <div class="foot">🤍 MADE FOR NARNA · ENTRE BLs &amp; DESEJOS</div>
+    </div>
+  </div>
+
+  <div class="ov" id="over" hidden>
+    <div class="box">
+      <div class="sub" style="margin:0 0 6px">You caught</div>
+      <div class="big" id="final">0</div>
+      <div class="best" id="best">Best: 0</div>
+      <button id="again">Play again</button><br>
+      <button class="ghost" id="copy">Copy my score</button>
+      <div class="msg" id="copymsg" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+const OTTER_SRC='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMzAgLTE5MCAyNjAgMzAwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjMwMCI+CiAgICAgIDxlbGxpcHNlIGN4PSIwIiBjeT0iMTAwIiByeD0iMTAwIiByeT0iMTUwIiBmaWxsPSIjOEU1RjNEIi8+CiAgICAgIDxlbGxpcHNlIGN4PSIwIiBjeT0iMTI1IiByeD0iNjgiIHJ5PSIxMTAiIGZpbGw9IiNFRUQ2QjYiLz4KICAgICAgPGVsbGlwc2UgY3g9IjAiIGN5PSItNTgiIHJ4PSIxMTgiIHJ5PSI4NCIgZmlsbD0iIzhFNUYzRCIvPgogICAgICA8Y2lyY2xlIGN4PSItMTA2IiBjeT0iLTkyIiByPSIxNSIgZmlsbD0iIzczNDkyRCIvPjxjaXJjbGUgY3g9Ii0xMDYiIGN5PSItOTIiIHI9IjciIGZpbGw9IiNEMkEwN0EiLz4KICAgICAgPGNpcmNsZSBjeD0iMTA2IiBjeT0iLTkyIiByPSIxNSIgZmlsbD0iIzczNDkyRCIvPjxjaXJjbGUgY3g9IjEwNiIgY3k9Ii05MiIgcj0iNyIgZmlsbD0iI0QyQTA3QSIvPgogICAgICA8cGF0aCBkPSJNLTEwMCAtMzAgUS05NiAyMiAwIDIyIFE5NiAyMiAxMDAgLTMwIFE3MCAtNjIgMCAtNjAgUS03MCAtNjIgLTEwMCAtMzBaIiBmaWxsPSIjRUVENkI2Ii8+CiAgICAgIDxlbGxpcHNlIGN4PSItNDQiIGN5PSItNzgiIHJ4PSIxMSIgcnk9IjEyIiBmaWxsPSIjMkExQTEwIi8+PGNpcmNsZSBjeD0iLTQwIiBjeT0iLTgyIiByPSI0IiBmaWxsPSIjZmZmIi8+CiAgICAgIDxlbGxpcHNlIGN4PSI0NCIgY3k9Ii03OCIgcng9IjExIiByeT0iMTIiIGZpbGw9IiMyQTFBMTAiLz48Y2lyY2xlIGN4PSI0OCIgY3k9Ii04MiIgcj0iNCIgZmlsbD0iI2ZmZiIvPgogICAgICA8ZWxsaXBzZSBjeD0iLTc0IiBjeT0iLTM0IiByeD0iMTciIHJ5PSI5IiBmaWxsPSIjRjU5RkFFIiBvcGFjaXR5PSIuNzUiLz4KICAgICAgPGVsbGlwc2UgY3g9Ijc0IiBjeT0iLTM0IiByeD0iMTciIHJ5PSI5IiBmaWxsPSIjRjU5RkFFIiBvcGFjaXR5PSIuNzUiLz4KICAgICAgPGVsbGlwc2UgY3g9IjAiIGN5PSItNDQiIHJ4PSIxOSIgcnk9IjEyIiBmaWxsPSIjMkExQTEwIi8+CiAgICAgIDxwYXRoIGQ9Ik0wIC0zMiBWLTI0IE0tMTUgLTIyIFEtNyAtMTIgMCAtMjQgUTcgLTEyIDE1IC0yMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMkExQTEwIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgICA8ZyBzdHJva2U9IiM5Qzc2NTYiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj4KICAgICAgICA8cGF0aCBkPSJNLTM0IC0zMCBMLTgyIC00MCBNLTM0IC0yMiBMLTg0IC0yMCBNLTM0IC0xNCBMLTc4IC0yIi8+CiAgICAgICAgPHBhdGggZD0iTTM0IC0zMCBMODIgLTQwIE0zNCAtMjIgTDg0IC0yMCBNMzQgLTE0IEw3OCAtMiIvPgogICAgICA8L2c+CiAgICA8ZWxsaXBzZSBjeD0iLTYyIiBjeT0iMTgiIHJ4PSIyNiIgcnk9IjIwIiBmaWxsPSIjNzM0OTJEIi8+PGVsbGlwc2UgY3g9IjYyIiBjeT0iMTgiIHJ4PSIyNiIgcnk9IjIwIiBmaWxsPSIjNzM0OTJEIi8+PC9zdmc+';
+const otterImg=new Image(); otterImg.src=OTTER_SRC;
+const cv=document.getElementById('c'), ctx=cv.getContext('2d');
+const $=id=>document.getElementById(id);
+let W=0,H=0,DPR=1, sea=0;
+function resize(){DPR=Math.min(2,window.devicePixelRatio||1);const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);sea=H*0.78;}
+window.addEventListener('resize',resize);resize();
+
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let best=0; try{best=+localStorage.getItem('narnaBest')||0}catch(e){}
+
+const S={running:false,score:0,lives:3,items:[],x:0,target:0,t:0,spawn:0,speed:1,pops:[],hurt:0};
+const OW=()=>Math.min(120,W*0.24); // otter width
+
+function reset(){S.score=0;S.lives=3;S.items=[];S.x=W/2;S.target=W/2;S.t=0;S.spawn=0;S.speed=1;S.pops=[];S.hurt=0;hud();}
+function hud(){$('score').textContent='🐟 '+S.score;$('lives').textContent='♥'.repeat(S.lives)+'♡'.repeat(Math.max(0,3-S.lives));}
+
+function spawn(){
+  const r=Math.random(); let k='fish';
+  if(r<0.07)k='gold';else if(r<0.20)k='shell';else if(r<0.20+Math.min(0.30,0.12+S.t/120000))k='crab';
+  const sz=k==='gold'?30:k==='crab'?30:k==='shell'?24:26;
+  S.items.push({k,x:20+Math.random()*(W-40),y:-30,vy:(1.6+Math.random()*1.2)*S.speed*(H/700),vx:(Math.random()-.5)*0.6,rot:Math.random()*6,sz,wob:Math.random()*6});
+}
+
+// --- drawing helpers (all original shapes) ---
+function fish(x,y,s,c1,c2,flip){ctx.save();ctx.translate(x,y);if(flip)ctx.scale(-1,1);
+  ctx.fillStyle=c1;ctx.beginPath();ctx.ellipse(0,0,s,s*0.6,0,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.moveTo(s*0.8,0);ctx.lineTo(s*1.5,-s*0.55);ctx.lineTo(s*1.5,s*0.55);ctx.closePath();ctx.fill();
+  ctx.fillStyle=c2;ctx.beginPath();ctx.ellipse(-s*0.1,s*0.15,s*0.55,s*0.25,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-s*0.5,-s*0.12,s*0.2,0,7);ctx.fill();ctx.fillStyle='#22324A';ctx.beginPath();ctx.arc(-s*0.55,-s*0.12,s*0.1,0,7);ctx.fill();ctx.restore();}
+function shell(x,y,s){ctx.save();ctx.translate(x,y);ctx.fillStyle='#FFD3DF';ctx.strokeStyle='#F08AA6';ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(-s,s*0.6);ctx.quadraticCurveTo(0,s*1.2,s,s*0.6);ctx.closePath();ctx.fill();ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,-s);ctx.lineTo(-s*0.45,s*0.75);ctx.moveTo(0,-s);ctx.lineTo(0,s*0.9);ctx.moveTo(0,-s);ctx.lineTo(s*0.45,s*0.75);ctx.stroke();ctx.restore();}
+function crab(x,y,s,t){ctx.save();ctx.translate(x,y);ctx.fillStyle='#E8604C';ctx.strokeStyle='#E8604C';ctx.lineWidth=4;ctx.lineCap='round';
+  for(const d of[-1,1]){for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(d*s*0.6,s*0.1+i*6);ctx.lineTo(d*s*1.15,s*0.35+i*8);ctx.stroke();}
+    ctx.beginPath();ctx.arc(d*s*1.05,-s*0.75+Math.sin(t/120)*2,s*0.32,0,7);ctx.fill();}
+  ctx.beginPath();ctx.ellipse(0,0,s*0.85,s*0.6,0,0,7);ctx.fill();
+  ctx.fillStyle='#fff';for(const d of[-1,1]){ctx.beginPath();ctx.arc(d*s*0.3,-s*0.55,s*0.18,0,7);ctx.fill();}
+  ctx.fillStyle='#22324A';for(const d of[-1,1]){ctx.beginPath();ctx.arc(d*s*0.3,-s*0.55,s*0.09,0,7);ctx.fill();}
+  ctx.restore();}
+function heart(x,y,s,c){ctx.save();ctx.translate(x,y);ctx.scale(s/16,s/16);ctx.fillStyle=c;ctx.beginPath();ctx.moveTo(0,8);ctx.bezierCurveTo(-14,-6,-6,-20,0,-10);ctx.bezierCurveTo(6,-20,14,-6,0,8);ctx.fill();ctx.restore();}
+
+function drawBg(t){
+  const g=ctx.createLinearGradient(0,0,0,sea);g.addColorStop(0,'#EAF4FB');g.addColorStop(1,'#FFFFFF');ctx.fillStyle=g;ctx.fillRect(0,0,W,sea+20);
+  ctx.fillStyle='rgba(255,255,255,.95)';for(const [cx,cy,r] of [[W*0.2,H*0.16,34],[W*0.78,H*0.26,28]]){ctx.beginPath();ctx.ellipse(cx+Math.sin(t/4000)*8,cy,r*2,r*0.8,0,0,7);ctx.ellipse(cx+r*0.6,cy-r*0.4,r*1.1,r*0.8,0,0,7);ctx.fill();}
+}
+function drawSea(t,front){
+  const amp=6, y0=sea+(front?10:0), ph=t/(front?700:900)+(front?1:0);
+  ctx.beginPath();ctx.moveTo(0,H);for(let x=0;x<=W+10;x+=10){ctx.lineTo(x,y0+Math.sin(x/38+ph)*amp);}ctx.lineTo(W,H);ctx.closePath();
+  const g=ctx.createLinearGradient(0,y0,0,H);g.addColorStop(0,front?'rgba(127,183,223,.92)':'#A9D0EC');g.addColorStop(1,front?'#3F79B6':'#7FB7DF');ctx.fillStyle=g;ctx.fill();
+  if(front){ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=4;ctx.beginPath();for(let x=0;x<=W+10;x+=10){const y=y0+Math.sin(x/38+ph)*amp;x?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.stroke();}
+}
+function drawOtter(t){
+  const w=OW(),h=w*300/260, bob=reduce?0:Math.sin(t/300)*3;
+  const x=S.x, y=sea-h*0.66+bob;
+  ctx.save();if(S.hurt>0&&Math.floor(S.hurt/80)%2===0)ctx.globalAlpha=.45;
+  ctx.translate(x,y+h/2);ctx.rotate((S.target-S.x)/W*0.4);
+  if(otterImg.complete)ctx.drawImage(otterImg,-w/2,-h/2,w,h);ctx.restore();
+}
+
+// --- input ---
+function setTarget(px){S.target=Math.max(OW()/2,Math.min(W-OW()/2,px));}
+let dragging=false;
+cv.addEventListener('pointerdown',e=>{dragging=true;const r=cv.getBoundingClientRect();setTarget(e.clientX-r.left);});
+window.addEventListener('pointermove',e=>{if(!dragging||!S.running)return;const r=cv.getBoundingClientRect();setTarget(e.clientX-r.left);});
+window.addEventListener('pointerup',()=>dragging=false);
+const keys={};window.addEventListener('keydown',e=>{keys[e.key]=true;if(['ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();});window.addEventListener('keyup',e=>keys[e.key]=false);
+
+// --- loop ---
+let last=performance.now();
+function loop(now){
+  const dt=Math.min(40,now-last);last=now;
+  if(S.running){
+    S.t+=dt;S.speed=1+S.t/45000;
+    if(keys.ArrowLeft)setTarget(S.target-dt*0.55);if(keys.ArrowRight)setTarget(S.target+dt*0.55);
+    S.x+=(S.target-S.x)*Math.min(1,dt/90);
+    S.spawn-=dt;if(S.spawn<=0){spawn();S.spawn=Math.max(380,950-S.t/90)*(0.7+Math.random()*0.6);}
+    const w=OW(), mouthY=sea-w*0.95;
+    for(const it of S.items){it.y+=it.vy*dt/16;it.x+=it.vx*dt/16;it.rot+=dt/600;
+      if(!it.done&&Math.abs(it.y-mouthY)<w*0.35&&Math.abs(it.x-S.x)<w*0.5){it.done=true;
+        if(it.k==='crab'){S.lives--;S.hurt=900;S.pops.push({x:it.x,y:it.y,txt:'ouch!',c:'#E8604C',l:900});if(S.lives<=0)end();}
+        else{const p=it.k==='gold'?5:it.k==='shell'?2:1;S.score+=p;S.pops.push({x:it.x,y:it.y,txt:'+'+p,c:it.k==='gold'?'#E59A10':'#3F79B6',l:800});}
+        hud();}
+      if(it.y>sea+10&&!it.done){it.done=true;}
+    }
+    S.items=S.items.filter(i=>!i.done);S.hurt=Math.max(0,S.hurt-dt);
+  }
+  ctx.clearRect(0,0,W,H);drawBg(now);drawSea(now,false);
+  for(const it of S.items){const s=it.sz*(W/420)**0.3, flip=it.vx>0;
+    if(it.k==='fish')fish(it.x,it.y,s,'#5DA9E6','#BFE0F5',flip);
+    else if(it.k==='gold')fish(it.x,it.y,s,'#F2B33D','#FFE7A6',flip);
+    else if(it.k==='shell')shell(it.x,it.y,s*0.9);
+    else crab(it.x,it.y,s*0.8,now);}
+  drawOtter(now);drawSea(now,true);
+  for(const p of S.pops){p.l-=dt;p.y-=dt*0.05;ctx.globalAlpha=Math.max(0,p.l/800);ctx.fillStyle=p.c;ctx.font='700 26px '+getComputedStyle(document.body).fontFamily;ctx.textAlign='center';ctx.fillText(p.txt,p.x,p.y);ctx.globalAlpha=1;}
+  S.pops=S.pops.filter(p=>p.l>0);
+  if(!S.running&&$('start').hidden===false){heart(W*0.5,sea-OW()*1.35+(reduce?0:Math.sin(now/400)*4),18,'#F48FB1');}
+  requestAnimationFrame(loop);
+}
+function start(){reset();S.running=true;$('start').hidden=true;$('over').hidden=true;$('hud').hidden=false;$('copymsg').textContent='';}
+function end(){S.running=false;if(S.score>best){best=S.score;try{localStorage.setItem('narnaBest',best)}catch(e){}}
+  $('final').textContent=S.score+(S.score===1?' point':' points');$('best').textContent='Best: '+best;$('over').hidden=false;$('hud').hidden=true;$('again').focus();}
+$('play').onclick=start;$('again').onclick=start;
+$('copy').onclick=()=>{const t='I scored '+S.score+' in Narna Catch! 🦦🐟 Can you beat me? #Narna';
+  navigator.clipboard.writeText(t).then(()=>$('copymsg').textContent='Copied! Paste it in the group 🤍').catch(()=>$('copymsg').textContent=t);};
+S.x=S.target=W/2;requestAnimationFrame(loop);
+})();
+</script>
+</body></html>
