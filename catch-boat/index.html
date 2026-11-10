@@ -1,0 +1,177 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Catch Boat! 🦦⛵"><meta property="og:description" content="He appears, says hi and vanishes. Can you catch him?">
+<title>Catch Boat!</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap">
+<style>
+:root{--ink:#2F4A6B;--blue:#3B6EA8;--sea:#7CC4F2;--pink:#E8638F;--bg1:#DDF2FF;--bg2:#FFF0F5;color-scheme:light}
+[hidden]{display:none!important}
+html,body{height:100%;margin:0}
+body{font-family:Fredoka,ui-rounded,system-ui,sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--bg1),var(--bg2));
+ -webkit-user-select:none;user-select:none;touch-action:manipulation;overflow:hidden}
+#app{max-width:520px;margin:0 auto;height:100%;display:flex;flex-direction:column;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 16px;box-sizing:border-box}
+h1{margin:4px 0 2px;text-align:center;font-weight:700;font-size:40px;color:#fff;-webkit-text-stroke:6px var(--blue);paint-order:stroke fill;text-shadow:0 5px 0 #8EC3EC}
+.hud{display:flex;justify-content:space-between;align-items:center;margin:10px 0;font-weight:600;font-size:20px}
+.pill{background:#fff;border-radius:999px;padding:6px 16px;box-shadow:0 4px 0 #BFE0F7}
+#grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:10px;width:min(100%,calc(100vh - 230px));aspect-ratio:1;margin:auto}
+.hole{position:relative;overflow:hidden;border-radius:24px;background:#fff;box-shadow:0 6px 0 #BFE0F7;cursor:pointer}
+.hole svg.w{position:absolute;left:0;right:0;bottom:0;width:100%;height:30%;z-index:2;pointer-events:none}
+.pop{position:absolute;left:50%;bottom:4%;width:92%;transform:translate(-50%,110%);transition:transform .14s ease-out;z-index:1}
+.pop.up{transform:translate(-50%,0)}
+.pop svg{width:100%;height:auto;display:block}
+.say{position:absolute;top:6px;left:50%;transform:translateX(-50%);background:#fff;border:3px solid var(--blue);border-radius:14px;padding:2px 8px;font-size:14px;font-weight:700;color:var(--blue);white-space:nowrap;z-index:3}
+.fx{position:absolute;top:30%;left:50%;transform:translateX(-50%);font-weight:700;font-size:30px;z-index:4;animation:up .7s forwards;pointer-events:none}
+@keyframes up{to{transform:translate(-50%,-40px);opacity:0}}
+.shake{animation:sh .3s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.ov{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(221,242,255,.92);z-index:10;padding:16px}
+.card{background:#fff;border-radius:28px;padding:24px 22px;max-width:420px;width:100%;text-align:center;box-shadow:0 10px 0 #BFE0F7}
+.card h2{margin:0 0 8px;font-size:32px;color:var(--blue)}
+.card p{margin:8px 0;font-size:18px;line-height:1.4}
+.rules{text-align:left;font-size:17px;margin:12px 0}
+.rules div{margin:6px 0}
+button{font-family:inherit;font-weight:700;font-size:20px;border:0;border-radius:999px;padding:12px 26px;background:var(--blue);color:#fff;box-shadow:0 5px 0 #2A4E7A;cursor:pointer;margin:6px}
+button.alt{background:#fff;color:var(--blue);border:3px solid var(--blue);box-shadow:0 5px 0 #BFE0F7}
+.big{font-size:64px;font-weight:700;color:var(--pink);line-height:1}
+.foot{text-align:center;font-size:13px;color:#7D8DA3;margin-top:8px}
+</style></head><body>
+<div id="app">
+ <h1>Catch Boat! ⛵</h1>
+ <div class="hud"><span class="pill">⏱ <b id="t">30</b>s</span><span class="pill">⛵ <b id="sc">0</b></span><span class="pill">🏆 <b id="best">0</b></span></div>
+ <div id="grid"></div>
+ <div class="foot"><a href="../narna-games/" style="color:#3B6EA8">more Narna games</a> · made with 🤍 · @entreblsedesejos</div>
+</div>
+<div class="ov" id="start"><div class="card">
+ <h2>He appears, says hi… and vanishes 🫧</h2>
+ <p>Catch Boat before he disappears from My Sea!</p>
+ <div class="rules">
+  <div>⛵ Tap the otter with the <b>paper boat hat</b> → <b>+1</b></div>
+  <div>🦦 Tap another Narna → <b>−1</b> (she was just saying hi!)</div>
+  <div>⚡ He gets faster and faster…</div>
+ </div>
+ <button id="go">Play</button>
+</div></div>
+<div class="ov" id="end" hidden><div class="card">
+ <h2 id="title">Time's up!</h2>
+ <div class="big" id="final">0</div>
+ <p id="msg"></p>
+ <button id="again">Play again</button><button class="alt" id="copy">Copy score</button>
+ <p id="copied" style="font-size:14px;color:#7D8DA3" hidden>Copied! Paste it in My Sea 🦦</p>
+</div></div>
+<script>
+const BR='#8E5F3D', DK='#73492D', CR='#EED6B6', INK='#2A1A10', BL='#F59FAE', BLUE='#3B6EA8';
+const heart=(x,y,s,c)=>`<path transform="translate(${x} ${y}) scale(${s})" d="M0 8 C-14 -6 -6 -20 0 -10 C6 -20 14 -6 0 8Z" fill="${c}"/>`;
+
+function eyes(t){
+  const L=-44,R=44,Y=-78;
+  if(t==='happy') return `<path d="M${L-13} ${Y+4} Q${L} ${Y-12} ${L+13} ${Y+4}" fill="none" stroke="${INK}" stroke-width="7" stroke-linecap="round"/><path d="M${R-13} ${Y+4} Q${R} ${Y-12} ${R+13} ${Y+4}" fill="none" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>`;
+  if(t==='sleep') return `<path d="M${L-13} ${Y-2} Q${L} ${Y+10} ${L+13} ${Y-2}" fill="none" stroke="${INK}" stroke-width="7" stroke-linecap="round"/><path d="M${R-13} ${Y-2} Q${R} ${Y+10} ${R+13} ${Y-2}" fill="none" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>`;
+  if(t==='heart') return heart(L,Y,1.6,'#E84A7F')+heart(R,Y,1.6,'#E84A7F');
+  if(t==='teary') return `<ellipse cx="${L}" cy="${Y}" rx="15" ry="16" fill="${INK}"/><circle cx="${L+5}" cy="${Y-6}" r="6" fill="#fff"/><circle cx="${L-5}" cy="${Y+6}" r="3" fill="#fff"/>
+     <ellipse cx="${R}" cy="${Y}" rx="15" ry="16" fill="${INK}"/><circle cx="${R+5}" cy="${Y-6}" r="6" fill="#fff"/><circle cx="${R-5}" cy="${Y+6}" r="3" fill="#fff"/>
+     <path d="M${L-8} ${Y+18} q-6 14 0 20 q6 -6 0 -20z" fill="#7CC4F2"/><path d="M${R+8} ${Y+18} q-6 14 0 20 q6 -6 0 -20z" fill="#7CC4F2"/>`;
+  if(t==='wink') return `<ellipse cx="${L}" cy="${Y}" rx="11" ry="12" fill="${INK}"/><circle cx="${L+4}" cy="${Y-4}" r="4" fill="#fff"/><path d="M${R-13} ${Y+4} Q${R} ${Y-12} ${R+13} ${Y+4}" fill="none" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>`;
+  return `<ellipse cx="${L}" cy="${Y}" rx="11" ry="12" fill="${INK}"/><circle cx="${L+4}" cy="${Y-4}" r="4" fill="#fff"/><ellipse cx="${R}" cy="${Y}" rx="11" ry="12" fill="${INK}"/><circle cx="${R+4}" cy="${Y-4}" r="4" fill="#fff"/>`;
+}
+function mouth(t){
+  if(t==='open') return `<path d="M-14 -26 Q0 -2 14 -26 Z" fill="#C2405E" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/>`;
+  if(t==='sad') return `<path d="M-12 -18 Q0 -28 12 -18" fill="none" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>`;
+  return `<path d="M-15 -22 Q-7 -12 0 -24 Q7 -12 15 -22" fill="none" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>`;
+}
+function paws(t){
+  if(t==='wave') return `<path d="M70 20 Q120 -10 130 -70" stroke="${BR}" stroke-width="44" stroke-linecap="round" fill="none"/><ellipse cx="132" cy="-80" rx="26" ry="22" fill="${DK}"/><ellipse cx="-45" cy="30" rx="26" ry="20" fill="${DK}"/>
+     <path d="M160 -110 q14 -6 20 6 M166 -78 q16 0 18 12" stroke="${BLUE}" stroke-width="8" stroke-linecap="round" fill="none"/>`;
+  if(t==='heart') return heart(0,62,7,'#F06292')+`<ellipse cx="-58" cy="50" rx="26" ry="21" fill="${DK}"/><ellipse cx="58" cy="50" rx="26" ry="21" fill="${DK}"/>`;
+  if(t==='wai') return `<ellipse cx="-13" cy="10" rx="18" ry="34" fill="${DK}" transform="rotate(-6 -13 10)"/><ellipse cx="13" cy="10" rx="18" ry="34" fill="${DK}" transform="rotate(6 13 10)"/>`;
+  if(t==='shell') return `<g transform="translate(0 55) scale(1.6)"><path d="M0 -26 L-30 14 Q0 30 30 14 Z" fill="#FFB7C9" stroke="#F08AA6" stroke-width="3" stroke-linejoin="round"/><path d="M0 -26 L-15 18 M0 -26 L0 22 M0 -26 L15 18" stroke="#F08AA6" stroke-width="3"/></g><ellipse cx="-50" cy="45" rx="26" ry="21" fill="${DK}"/><ellipse cx="50" cy="45" rx="26" ry="21" fill="${DK}"/>`;
+  if(t==='face') return `<ellipse cx="-80" cy="-30" rx="26" ry="22" fill="${DK}"/><ellipse cx="80" cy="-30" rx="26" ry="22" fill="${DK}"/>`;
+  return `<ellipse cx="-45" cy="30" rx="26" ry="20" fill="${DK}"/><ellipse cx="45" cy="30" rx="26" ry="20" fill="${DK}"/>`;
+}
+function otter(o){
+  return `<g>
+   <ellipse cx="0" cy="80" rx="112" ry="108" fill="${BR}"/>
+   <ellipse cx="0" cy="95" rx="74" ry="78" fill="${CR}"/>
+   <ellipse cx="-60" cy="178" rx="34" ry="18" fill="${DK}"/><ellipse cx="60" cy="178" rx="34" ry="18" fill="${DK}"/>
+   <ellipse cx="0" cy="-58" rx="118" ry="84" fill="${BR}"/>
+   <circle cx="-106" cy="-92" r="15" fill="${DK}"/><circle cx="-106" cy="-92" r="7" fill="#D2A07A"/>
+   <circle cx="106" cy="-92" r="15" fill="${DK}"/><circle cx="106" cy="-92" r="7" fill="#D2A07A"/>
+   <path d="M-100 -30 Q-96 22 0 22 Q96 22 100 -30 Q70 -62 0 -60 Q-70 -62 -100 -30Z" fill="${CR}"/>
+   ${eyes(o.eyes)}
+   <ellipse cx="-74" cy="-34" rx="17" ry="9" fill="${BL}" opacity="${o.blush||.75}"/><ellipse cx="74" cy="-34" rx="17" ry="9" fill="${BL}" opacity="${o.blush||.75}"/>
+   <ellipse cx="0" cy="-44" rx="19" ry="12" fill="${INK}"/>
+   ${mouth(o.mouth)}
+   <g stroke="#9C7656" stroke-width="3" stroke-linecap="round"><path d="M-34 -30 L-82 -40 M-34 -22 L-84 -20 M-34 -14 L-78 -2"/><path d="M34 -30 L82 -40 M34 -22 L84 -20 M34 -14 L78 -2"/></g>
+   ${paws(o.paws)}
+   ${o.hat||''}
+  </g>`;
+}
+const water=`<path d="M-190 140 Q-142 115 -95 140 T0 140 T95 140 T190 140 Q200 200 150 215 Q0 235 -150 215 Q-200 200 -190 140Z" fill="#5DA9E6"/><path d="M-190 140 Q-142 115 -95 140 T0 140 T95 140 T190 140" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>`;
+const nightcap=`<path d="M-70 -128 Q-10 -230 80 -190 Q40 -160 70 -125 Z" fill="#7FA8E0"/><circle cx="84" cy="-192" r="16" fill="#fff"/><path d="M-80 -128 Q0 -150 80 -128" stroke="#fff" stroke-width="16" stroke-linecap="round" fill="none"/>`;
+
+
+const hats={
+ boat:`<g transform="translate(0 -150)"><path d="M-80 0 L80 0 L50 40 L-50 40Z" fill="#fff" stroke="#3B6EA8" stroke-width="8" stroke-linejoin="round"/><path d="M0 0 L0 -85 L55 -10Z" fill="#fff" stroke="#3B6EA8" stroke-width="8" stroke-linejoin="round"/></g>`,
+ party:`<g transform="translate(20 -140)"><path d="M-45 10 L0 -95 L45 10Z" fill="#F7B6CB" stroke="#E8638F" stroke-width="7"/><circle cy="-98" r="14" fill="#FFD36E"/></g>`,
+ bow:`<g transform="translate(70 -125)"><path d="M0 0 L-45 -30 L-45 30Z M0 0 L45 -30 L45 30Z" fill="#E8638F"/><circle r="13" fill="#C2405E"/></g>`,
+ crown:`<g transform="translate(0 -140)"><path d="M-60 20 L-60 -30 L-30 0 L0 -40 L30 0 L60 -30 L60 20Z" fill="#FFD36E" stroke="#E0A800" stroke-width="6" stroke-linejoin="round"/></g>`,
+ flower:`<g transform="translate(-75 -120)">${[0,72,144,216,288].map(r=>`<ellipse rx="16" ry="26" cy="-22" transform="rotate(${r})" fill="#fff" stroke="#F7B6CB" stroke-width="3"/>`).join('')}<circle r="14" fill="#FFD36E"/></g>`,
+ tri:`<g transform="translate(0 -150)"><path d="M-70 30 L0 -20 L70 30Z" fill="#fff" stroke="#3B6EA8" stroke-width="8" stroke-linejoin="round"/></g>`
+};
+const svgOf=(o)=>`<svg viewBox="-200 -260 400 420" xmlns="http://www.w3.org/2000/svg">${otter(o)}</svg>`;
+const BOAT=svgOf({eyes:'happy',mouth:'open',paws:'wave',hat:hats.boat});
+const BOAT_HIT=svgOf({eyes:'heart',mouth:'open',paws:'heart',hat:hats.boat,blush:1});
+const decoyHats=['party','bow','crown','flower','tri','tri'];
+const eyesL=['normal','happy','wink','heart'];
+const pawsL=['default','wave','heart','face','shell'];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const wave=`<svg class="w" viewBox="0 0 120 50" preserveAspectRatio="none"><path d="M0 14 Q15 4 30 14 T60 14 T90 14 T120 14 V50 H0Z" fill="#7CC4F2"/><path d="M0 14 Q15 4 30 14 T60 14 T90 14 T120 14" fill="none" stroke="#fff" stroke-width="3"/></svg>`;
+const grid=document.getElementById('grid');const holes=[];
+for(let i=0;i<9;i++){const h=document.createElement('div');h.className='hole';h.innerHTML=`<div class="pop"></div>`+wave;grid.appendChild(h);holes.push({el:h,pop:h.querySelector('.pop'),busy:false,kind:null,timer:null});h.addEventListener('pointerdown',()=>hit(i));}
+const $=id=>document.getElementById(id);
+let best=0;try{best=+localStorage.getItem('catchBoatBest')||0}catch(e){}
+$('best').textContent=best;
+let score=0,timeLeft=30,running=false,spawnT=null,clockT=null,elapsed=0;
+function fx(h,txt,col){const d=document.createElement('div');d.className='fx';d.textContent=txt;d.style.color=col;h.el.appendChild(d);setTimeout(()=>d.remove(),700);}
+function hide(i){const h=holes[i];clearTimeout(h.timer);h.pop.classList.remove('up');const s=h.el.querySelector('.say');if(s)s.remove();setTimeout(()=>{h.busy=false;h.kind=null},160);}
+function spawn(){
+  if(!running)return;
+  const free=holes.map((h,i)=>i).filter(i=>!holes[i].busy);
+  const n=Math.min(free.length, elapsed>15?2:1);
+  for(let k=0;k<n;k++){
+    const idx=free.splice(Math.floor(Math.random()*free.length),1)[0];if(idx===undefined)break;
+    const h=holes[idx];h.busy=true;
+    const isBoat=Math.random()<0.38;h.kind=isBoat?'boat':'narna';
+    h.pop.innerHTML=isBoat?BOAT:svgOf({eyes:pick(eyesL),mouth:pick(['smile','open']),paws:pick(pawsL),hat:hats[pick(decoyHats)]});
+    if(isBoat){const s=document.createElement('div');s.className='say';s.textContent='Hi Narna! 👋';h.el.appendChild(s);}
+    requestAnimationFrame(()=>h.pop.classList.add('up'));
+    const life=isBoat?Math.max(520,1150-elapsed*22):Math.max(700,1400-elapsed*20);
+    h.timer=setTimeout(()=>{if(h.kind==='boat')fx(h,'poof 🫧','#8EC3EC');hide(idx)},life);
+  }
+  spawnT=setTimeout(spawn,Math.max(420,850-elapsed*14));
+}
+function hit(i){
+  if(!running)return;const h=holes[i];if(!h.busy||!h.kind)return;
+  if(h.kind==='boat'){score++;h.pop.innerHTML=BOAT_HIT;fx(h,'+1 💙','#3B6EA8');h.kind='done';setTimeout(()=>hide(i),180);}
+  else if(h.kind==='narna'){score=Math.max(0,score-1);fx(h,'−1','#E8638F');h.el.classList.add('shake');setTimeout(()=>h.el.classList.remove('shake'),300);h.kind='done';setTimeout(()=>hide(i),150);}
+  $('sc').textContent=score;
+}
+function start(){
+  score=0;timeLeft=30;elapsed=0;$('sc').textContent=0;$('t').textContent=30;
+  holes.forEach((h,i)=>hide(i));
+  $('start').hidden=true;$('end').hidden=true;$('copied').hidden=true;running=true;
+  clockT=setInterval(()=>{timeLeft--;elapsed++;$('t').textContent=timeLeft;if(timeLeft<=0)end()},1000);
+  setTimeout(spawn,400);
+}
+function end(){
+  running=false;clearInterval(clockT);clearTimeout(spawnT);holes.forEach((h,i)=>hide(i));
+  if(score>best){best=score;try{localStorage.setItem('catchBoatBest',best)}catch(e){};$('best').textContent=best;}
+  $('final').textContent=score;
+  const m=score>=25?['Official wife material 💍','He stayed in My Sea just for you 🥹']:
+          score>=15?['Top Narna! 🏆','He definitely saw your messages 💌']:
+          score>=8?['Not bad, otter! 🦦','He waved back… then vanished 🫧']:
+                   ['He got away again 😭','See you in 3 business days, husband'];
+  $('title').textContent=m[0];$('msg').textContent=m[1];$('end').hidden=false;
+}
+$('go').onclick=start;$('again').onclick=start;
+$('copy').onclick=async()=>{const t=`I caught Boat ${score} times in Catch Boat! ⛵🦦 Can you beat me? ${location.href}`;
+  try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove()}
+  $('copied').hidden=false;};
+</script></body></html>
