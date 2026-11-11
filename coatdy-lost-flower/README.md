@@ -9,8 +9,8 @@ https://vantevb.github.io/entreblsedesejos-midia/coatdy-lost-flower/
 Português do Brasil, English and Thai. No login, downloads, tracking or server required. The best carrot collection is stored only in the player’s browser.
 
 - Hold the on-screen left and right arrows to walk. Dragging the scene also remains available.
-- Tap to jump and tap again in the air to double jump.
-- Swipe up for a wind dash. A second finger can tap while the first finger moves.
+- While holding an arrow, use your other thumb to tap ↑ to jump, and tap again in the air to double jump.
+- Tap ✧ for a wind dash. Tapping the scene and swiping up remain available as alternatives.
 - Tap Coatdy or her speech bubbles to interact.
 - Desktop: A/D or arrow keys, Space, X. Escape pauses.
 
