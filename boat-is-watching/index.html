@@ -1,5 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta property="og:title" content="Boat Is Watching 👀🦦"><meta property="og:description" content="Chat with the Narnas… but stop when Boat looks!">
+<meta property="og:title" content="Boat Is Watching 👀"><meta property="og:description" content="Chat with the Narnas… but stop typing when Boat turns around!">
+<meta property="og:image" content="https://vantevb.github.io/entreblsedesejos-midia/boat-is-watching/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://vantevb.github.io/entreblsedesejos-midia/boat-is-watching/"><meta name="twitter:card" content="summary_large_image">
 <title>Boat Is Watching</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap">
 <style>
@@ -43,26 +45,47 @@ h1{margin:4px 0 2px;text-align:center;font-weight:700;font-size:36px;color:#fff;
   <div id="boat"></div>
   <div id="status"></div>
   <div class="chat"><div class="msg" id="msg">…</div><div class="bar"><div class="fill" id="fill"></div></div>
-   <button id="hold">Hold to chat 💬</button></div>
+   <button id="hold" data-i18n="hold"></button></div>
  </div>
- <div class="foot"><a href="../narna-games/">more Narna games</a> · made with 🤍 · @entreblsedesejos</div>
+ <div class="foot"><a href="../narna-games/" data-i18n="more"></a> · made with 🤍 · @entreblsedesejos</div>
 </div>
 <div class="ov" id="start"><div class="card">
- <h2>Shh… Boat is watching 👀</h2>
- <p>The Narnas want to chat in My Sea, but Boat sees <i>everything</i> (like Santa Claus 🎅).</p>
+ <h2 data-i18n="h2"></h2>
+ <p data-i18n="p"></p>
  <div class="rules">
-  <div>💬 <b>Hold</b> the button to type your message</div>
-  <div>🖼️ While Boat looks at art, it's safe</div>
-  <div>❗ When he wiggles, <b>let go!</b></div>
-  <div>👀 Caught typing while he looks = lose a heart</div>
+  <div data-i18n="r1"></div>
+  <div data-i18n="r2"></div>
+  <div data-i18n="r3"></div>
+  <div data-i18n="r4"></div>
  </div>
- <button class="btn" id="go">Play</button>
+ <button class="btn" id="go" data-i18n="play"></button>
+ <div class="langbox" style="margin-top:14px"></div>
 </div></div>
 <div class="ov" id="end" hidden><div class="card">
  <h2 id="title">Caught!</h2><div class="big" id="final">0</div><p id="emsg"></p>
- <button class="btn" id="again">Play again</button><button class="btn alt" id="copy">Copy score</button>
- <p id="copied" style="font-size:14px;color:#7D8DA3" hidden>Copied! Paste it in My Sea 🦦</p>
+ <button class="btn" id="again" data-i18n="again"></button><button class="btn alt" id="copy" data-i18n="copy"></button>
+ <p id="copied" style="font-size:14px;color:#7D8DA3" hidden data-i18n="copied"></p>
 </div></div>
+<script>
+window.I18N={
+en:{h2:'Shh… Boat is watching 👀',p:'The Narnas want to chat in My Sea, but Boat sees <i>everything</i> (like Santa Claus 🎅).',r1:'💬 <b>Hold</b> the button to type your message',r2:"🖼️ While Boat looks at art, it's safe",r3:'❗ When he wiggles, <b>let go!</b>',r4:'👀 Caught typing while he looks = lose a heart',play:'Play',hold:'Hold to chat 💬',again:'Play again',copy:'Copy score',copied:'Copied! Paste it in My Sea 🦦',more:'more Narna games',
+ sAway:'🖼️ looking at art…',sWarn:"❗ he's turning…",sWatch:'👀 Boat is watching',sSent:'✅ sent!',bub:['I see 👀','5555 🤣','Caught you!','I see everything 🎅'],
+ msgs:["Boat is so cute today 🥹","Did you see his new photo?? 😭","I'm not crying, you're crying","Hi Boat! 👋 (he left again)","Narna forever 🦦🤍","Who's going to the next fanmeeting?","That smile should be illegal","Let's plan a group trip ✈️","Otters hold hands while sleeping 🥺","Look at this wallpaper I made…","Shh he's online","Has anyone eaten yet? 🍜"],
+ e3:['Master of sneaky chats 🥷','Boat never stood a chance 😂'],e2:['Not bad, Narna! 🦦','He only caught you a little…'],e1:['Caught! 👀',"He's like Santa Claus, he sees everything 🎅"],share:'I sent {n} messages before Boat caught me 👀🦦 Can you beat me?'},
+pt:{h2:'Shh… o Boat tá de olho 👀',p:'As Narnas querem conversar no My Sea, mas o Boat vê <i>tudo</i> (tipo Papai Noel 🎅).',r1:'💬 <b>Segure</b> o botão pra digitar sua mensagem',r2:'🖼️ Enquanto o Boat olha a arte, tá tranquilo',r3:'❗ Quando ele balançar, <b>solta!</b>',r4:'👀 Pega digitando enquanto ele olha = perde um coração',play:'Jogar',hold:'Segure pra conversar 💬',again:'Jogar de novo',copy:'Copiar pontuação',copied:'Copiado! Cola no My Sea 🦦',more:'mais jogos das Narnas',
+ sAway:'🖼️ olhando a arte…',sWarn:'❗ ele tá virando…',sWatch:'👀 O Boat tá olhando',sSent:'✅ enviada!',bub:['Tô vendo 👀','kkkkk 🤣','Te peguei!','Eu vejo tudo 🎅'],
+ msgs:["O Boat tá tão fofo hoje 🥹","Viram a foto nova dele?? 😭","Não tô chorando, você que tá","Oi Boat! 👋 (ele sumiu de novo)","Narna pra sempre 🦦🤍","Quem vai no próximo fanmeeting?","Esse sorriso devia ser proibido","Bora planejar uma viagem em grupo ✈️","Lontras dão as mãos pra dormir 🥺","Olha esse wallpaper que eu fiz…","Shh, ele tá online","Alguém já comeu? 🍜"],
+ e3:['Mestre das conversas escondidas 🥷','O Boat nunca teve chance 😂'],e2:['Nada mal, Narna! 🦦','Ele só te pegou um pouquinho…'],e1:['Pega! 👀','Ele é tipo Papai Noel, vê tudo 🎅'],share:'Mandei {n} mensagens antes do Boat me pegar 👀🦦 Consegue me superar?'},
+es:{h2:'Shh… Boat está mirando 👀',p:'Las Narnas quieren charlar en My Sea, pero Boat lo ve <i>todo</i> (como Santa Claus 🎅).',r1:'💬 <b>Mantén</b> el botón para escribir tu mensaje',r2:'🖼️ Mientras Boat mira el arte, estás a salvo',r3:'❗ Cuando se mueva, <b>¡suelta!</b>',r4:'👀 Si te ve escribiendo = pierdes un corazón',play:'Jugar',hold:'Mantén para chatear 💬',again:'Jugar otra vez',copy:'Copiar puntaje',copied:'¡Copiado! Pégalo en My Sea 🦦',more:'más juegos de Narna',
+ sAway:'🖼️ mirando arte…',sWarn:'❗ se está dando la vuelta…',sWatch:'👀 Boat está mirando',sSent:'✅ ¡enviado!',bub:['Te veo 👀','jajaja 🤣','¡Te atrapé!','Lo veo todo 🎅'],
+ msgs:["Boat está tan lindo hoy 🥹","¿Vieron su foto nueva?? 😭","No estoy llorando, tú estás llorando","¡Hola Boat! 👋 (se fue otra vez)","Narna por siempre 🦦🤍","¿Quién va al próximo fanmeeting?","Esa sonrisa debería ser ilegal","Planeemos un viaje en grupo ✈️","Las nutrias se toman de la mano al dormir 🥺","Miren este fondo de pantalla que hice…","Shh, está en línea","¿Alguien ya comió? 🍜"],
+ e3:['Maestra del chat a escondidas 🥷','Boat nunca tuvo oportunidad 😂'],e2:['¡Nada mal, Narna! 🦦','Solo te atrapó un poquito…'],e1:['¡Atrapada! 👀','Es como Santa Claus, lo ve todo 🎅'],share:'Mandé {n} mensajes antes de que Boat me atrapara 👀🦦 ¿Puedes superarme?'},
+th:{h2:'ชู่ว์… Boat กำลังมองอยู่ 👀',p:'ชาว Narna อยากคุยกันใน My Sea แต่ Boat เห็น<i>ทุกอย่าง</i> (เหมือนซานตาคลอส 🎅)',r1:'💬 <b>กดค้าง</b>ที่ปุ่มเพื่อพิมพ์ข้อความ',r2:'🖼️ ตอนที่ Boat ดูงานศิลปะ ปลอดภัย',r3:'❗ ถ้าเขาเริ่มขยับ <b>ปล่อยมือ!</b>',r4:'👀 โดนจับได้ตอนพิมพ์ = เสียหัวใจ 1 ดวง',play:'เล่นเลย',hold:'กดค้างเพื่อแชท 💬',again:'เล่นอีกครั้ง',copy:'คัดลอกคะแนน',copied:'คัดลอกแล้ว! ส่งใน My Sea ได้เลย 🦦',more:'เกมอื่น ๆ ของ Narna',
+ sAway:'🖼️ กำลังดูงานศิลปะ…',sWarn:'❗ เขากำลังหันมา…',sWatch:'👀 Boat กำลังมองอยู่',sSent:'✅ ส่งแล้ว!',bub:['เห็นนะ 👀','5555 🤣','จับได้แล้ว!','เห็นทุกอย่างนะ 🎅'],
+ msgs:["วันนี้ Boat น่ารักมาก 🥹","เห็นรูปใหม่ของเขายัง?? 😭","ไม่ได้ร้องไห้นะ เธอนั่นแหละร้อง","หวัดดี Boat! 👋 (หายไปอีกแล้ว)","Narna ตลอดไป 🦦🤍","ใครจะไปแฟนมีตครั้งหน้าบ้าง?","รอยยิ้มนี้ควรผิดกฎหมาย","ไปเที่ยวด้วยกันเป็นกลุ่มไหม ✈️","นากจับมือกันตอนนอน 🥺","ดูวอลเปเปอร์ที่ฉันทำสิ…","ชู่ว์ เขาออนไลน์อยู่","กินข้าวกันยัง? 🍜"],
+ e3:['เซียนแอบแชท 🥷','Boat ไม่มีทางจับได้เลย 😂'],e2:['ไม่เลวนะ Narna! 🦦','โดนจับได้นิดหน่อยเอง…'],e1:['โดนจับได้! 👀','เขาเหมือนซานตาคลอส เห็นทุกอย่าง 🎅'],share:'ส่งได้ {n} ข้อความก่อนโดน Boat จับได้ 👀🦦 มาแข่งกันไหม?'}};
+</script>
+<script src="../shared/lang.js"></script>
 <script>
 const BR='#8E5F3D', DK='#73492D', CR='#EED6B6', INK='#2A1A10', BL='#F59FAE', BLUE='#3B6EA8';
 const heart=(x,y,s,c)=>`<path transform="translate(${x} ${y}) scale(${s})" d="M0 8 C-14 -6 -6 -20 0 -10 C6 -20 14 -6 0 8Z" fill="${c}"/>`;
@@ -119,25 +142,25 @@ const V='viewBox="-200 -260 400 460" xmlns="http://www.w3.org/2000/svg"';
 const BACK=`<svg ${V}><ellipse cx="0" cy="80" rx="112" ry="108" fill="${BR}"/><ellipse cx="-60" cy="178" rx="34" ry="18" fill="${DK}"/><ellipse cx="60" cy="178" rx="34" ry="18" fill="${DK}"/><ellipse cx="0" cy="-58" rx="118" ry="84" fill="${BR}"/><circle cx="-106" cy="-92" r="15" fill="${DK}"/><circle cx="106" cy="-92" r="15" fill="${DK}"/><path d="M90 120 Q190 110 170 30" stroke="${DK}" stroke-width="34" fill="none" stroke-linecap="round"/>${boatHat}</svg>`;
 const FRONT=`<svg ${V}>${otter({eyes:'normal',mouth:'smile',paws:'default',hat:boatHat})}</svg>`;
 const CAUGHT=`<svg ${V}>${otter({eyes:'happy',mouth:'open',paws:'face',hat:boatHat,blush:1})}</svg>`;
-const msgs=["Boat is so cute today 🥹","Did you see his new photo?? 😭","I'm not crying, you're crying","Hi Boat! 👋 (he left again)","Narna forever 🦦🤍","Who's going to the next fanmeeting?","That smile should be illegal","Let's plan a group trip ✈️","Otters hold hands while sleeping 🥺","Look at this wallpaper I made…","Shh he's online","Has anyone eaten yet? 🍜"];
+
 const $=id=>document.getElementById(id);
 let best=0;try{best=+localStorage.getItem('boatWatchBest')||0}catch(e){} $('best').textContent=best;
 let state='away',score=0,lives=3,prog=0,holding=false,running=false,t0=0,tState=0,stateDur=0,elapsed=0,raf=0,last=0,msg='';
 function setBoat(s){state=s;tState=0;
- if(s==='away'){$('boat').innerHTML=BACK;$('boat').classList.remove('shake');$('art').hidden=false;$('status').textContent='🖼️ looking at art…';$('status').style.color='#7D8DA3';$('bubble').hidden=true;stateDur=1200+Math.random()*2200-Math.min(800,elapsed*15);}
- if(s==='warn'){$('boat').classList.add('shake');$('status').textContent='❗ he\'s turning…';$('status').style.color='#E0A800';stateDur=Math.max(260,650-elapsed*10);}
- if(s==='watch'){$('boat').classList.remove('shake');$('boat').innerHTML=FRONT;$('art').hidden=true;$('status').textContent='👀 Boat is watching';$('status').style.color='#E8638F';stateDur=900+Math.random()*1300;}
+ if(s==='away'){$('boat').innerHTML=BACK;$('boat').classList.remove('shake');$('art').hidden=false;$('status').textContent=T('sAway');$('status').style.color='#7D8DA3';$('bubble').hidden=true;stateDur=1200+Math.random()*2200-Math.min(800,elapsed*15);}
+ if(s==='warn'){$('boat').classList.add('shake');$('status').textContent=T('sWarn');$('status').style.color='#E0A800';stateDur=Math.max(260,650-elapsed*10);}
+ if(s==='watch'){$('boat').classList.remove('shake');$('boat').innerHTML=FRONT;$('art').hidden=true;$('status').textContent=T('sWatch');$('status').style.color='#E8638F';stateDur=900+Math.random()*1300;}
 }
-function newMsg(){msg=msgs[Math.floor(Math.random()*msgs.length)];prog=0;render()}
+function newMsg(){msg=(m=>m[Math.floor(Math.random()*m.length)])(T('msgs'));prog=0;render()}
 function render(){const n=Math.round(msg.length*prog);$('msg').textContent=(msg.slice(0,n)||'…')+(holding&&prog<1?'|':'');$('fill').style.width=(prog*100)+'%';}
-function caught(){lives--;$('lives').textContent='🤍'.repeat(Math.max(0,lives))+'🖤'.repeat(3-Math.max(0,lives));$('boat').innerHTML=CAUGHT;$('bubble').textContent=['I see 👀','5555 🤣','Caught you!','I see everything 🎅'][Math.floor(Math.random()*4)];$('bubble').hidden=false;holding=false;$('hold').classList.remove('on');prog=Math.max(0,prog-0.4);render();
+function caught(){lives--;$('lives').textContent='🤍'.repeat(Math.max(0,lives))+'🖤'.repeat(3-Math.max(0,lives));$('boat').innerHTML=CAUGHT;$('bubble').textContent=(b=>b[Math.floor(Math.random()*b.length)])(T('bub'));$('bubble').hidden=false;holding=false;$('hold').classList.remove('on');prog=Math.max(0,prog-0.4);render();
  if(lives<=0){setTimeout(end,700)}else{state='pause';tState=0;stateDur=1100;}}
 function loop(ts){if(!running)return;const dt=Math.min(50,ts-(last||ts));last=ts;tState+=dt;elapsed+=dt/1000;
  if(state==='pause'&&tState>stateDur){setBoat('away')}
  if(state==='away'&&tState>stateDur)setBoat('warn');
  else if(state==='warn'&&tState>stateDur)setBoat('watch');
  else if(state==='watch'){if(holding){caught()}else if(tState>stateDur)setBoat('away')}
- if(holding&&state!=='watch'&&state!=='pause'){prog+=dt/(1600+msg.length*20);if(prog>=1){score++;$('sc').textContent=score;$('status').textContent='✅ sent!';newMsg();}}
+ if(holding&&state!=='watch'&&state!=='pause'){prog+=dt/(1600+msg.length*20);if(prog>=1){score++;$('sc').textContent=score;$('status').textContent=T('sSent');newMsg();}}
  render();raf=requestAnimationFrame(loop);}
 const down=e=>{e.preventDefault();if(!running)return;holding=true;$('hold').classList.add('on')};
 const up=e=>{holding=false;$('hold').classList.remove('on')};
@@ -147,9 +170,9 @@ function start(){score=0;lives=3;elapsed=0;last=0;$('sc').textContent=0;$('lives
 function end(){running=false;cancelAnimationFrame(raf);holding=false;
  if(score>best){best=score;try{localStorage.setItem('boatWatchBest',best)}catch(e){};$('best').textContent=best}
  $('final').textContent=score;
- const m=score>=12?['Master of sneaky chats 🥷','Boat never stood a chance 😂']:score>=6?['Not bad, Narna! 🦦','He only caught you a little…']:['Caught! 👀','He\'s like Santa Claus, he sees everything 🎅'];
+ const m=T(score>=12?'e3':score>=6?'e2':'e1');
  $('title').textContent=m[0];$('emsg').textContent=m[1];$('end').hidden=false;}
 $('go').onclick=start;$('again').onclick=start;
-$('copy').onclick=async()=>{const t=`I sent ${score} messages before Boat caught me 👀🦦 Can you beat me? ${location.href}`;try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove()}$('copied').hidden=false};
+$('copy').onclick=async()=>{const t=T('share',{n:score})+' '+location.href;try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove()}$('copied').hidden=false};
 $('boat').innerHTML=BACK;
 </script></body></html>

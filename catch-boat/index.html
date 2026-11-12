@@ -1,5 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta property="og:title" content="Catch Boat! 🦦⛵"><meta property="og:description" content="He appears, says hi and vanishes. Can you catch him?">
+<meta property="og:title" content="Catch Boat! ⛵"><meta property="og:description" content="He appears, says hi… and vanishes. Catch Boat before he disappears from My Sea!">
+<meta property="og:image" content="https://vantevb.github.io/entreblsedesejos-midia/catch-boat/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://vantevb.github.io/entreblsedesejos-midia/catch-boat/"><meta name="twitter:card" content="summary_large_image">
 <title>Catch Boat!</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap">
 <style>
@@ -37,25 +39,38 @@ button.alt{background:#fff;color:var(--blue);border:3px solid var(--blue);box-sh
  <h1>Catch Boat! ⛵</h1>
  <div class="hud"><span class="pill">⏱ <b id="t">30</b>s</span><span class="pill">⛵ <b id="sc">0</b></span><span class="pill">🏆 <b id="best">0</b></span></div>
  <div id="grid"></div>
- <div class="foot"><a href="../narna-games/" style="color:#3B6EA8">more Narna games</a> · made with 🤍 · @entreblsedesejos</div>
+ <div class="foot"><a href="../narna-games/" style="color:#3B6EA8" data-i18n="more"></a> · made with 🤍 · @entreblsedesejos</div>
 </div>
 <div class="ov" id="start"><div class="card">
- <h2>He appears, says hi… and vanishes 🫧</h2>
- <p>Catch Boat before he disappears from My Sea!</p>
+ <h2 data-i18n="h2"></h2>
+ <p data-i18n="p"></p>
  <div class="rules">
-  <div>⛵ Tap the otter with the <b>paper boat hat</b> → <b>+1</b></div>
-  <div>🦦 Tap another Narna → <b>−1</b> (she was just saying hi!)</div>
-  <div>⚡ He gets faster and faster…</div>
+  <div data-i18n="r1"></div>
+  <div data-i18n="r2"></div>
+  <div data-i18n="r3"></div>
  </div>
- <button id="go">Play</button>
+ <button id="go" data-i18n="play"></button>
+ <div class="langbox" style="margin-top:14px"></div>
 </div></div>
 <div class="ov" id="end" hidden><div class="card">
  <h2 id="title">Time's up!</h2>
  <div class="big" id="final">0</div>
  <p id="msg"></p>
- <button id="again">Play again</button><button class="alt" id="copy">Copy score</button>
- <p id="copied" style="font-size:14px;color:#7D8DA3" hidden>Copied! Paste it in My Sea 🦦</p>
+ <button id="again" data-i18n="again"></button><button class="alt" id="copy" data-i18n="copy"></button>
+ <p id="copied" style="font-size:14px;color:#7D8DA3" hidden data-i18n="copied"></p>
 </div></div>
+<script>
+window.I18N={
+en:{h2:'He appears, says hi… and vanishes 🫧',p:'Catch Boat before he disappears from My Sea!',r1:'⛵ Tap the otter with the <b>paper boat hat</b> → <b>+1</b>',r2:'🦦 Tap another Narna → <b>−1</b> (she was just saying hi!)',r3:'⚡ He gets faster and faster…',play:'Play',again:'Play again',copy:'Copy score',copied:'Copied! Paste it in My Sea 🦦',more:'more Narna games',hi:'Hi Narna! 👋',
+ t4:['Official wife material 💍','He stayed in My Sea just for you 🥹'],t3:['Top Narna! 🏆','He definitely saw your messages 💌'],t2:['Not bad, otter! 🦦','He waved back… then vanished 🫧'],t1:['He got away again 😭','See you in 3 business days, husband'],share:'I caught Boat {n} times in Catch Boat! ⛵🦦 Can you beat me?'},
+pt:{h2:'Ele aparece, dá oi… e some 🫧',p:'Pegue o Boat antes que ele suma do My Sea!',r1:'⛵ Toque na lontra com o <b>chapéu de barquinho</b> → <b>+1</b>',r2:'🦦 Tocou em outra Narna → <b>−1</b> (ela só tava dando oi!)',r3:'⚡ Ele fica cada vez mais rápido…',play:'Jogar',again:'Jogar de novo',copy:'Copiar pontuação',copied:'Copiado! Cola no My Sea 🦦',more:'mais jogos das Narnas',hi:'Oi Narna! 👋',
+ t4:['Material de esposa oficial 💍','Ele ficou no My Sea só por você 🥹'],t3:['Narna nota 10! 🏆','Ele com certeza viu suas mensagens 💌'],t2:['Nada mal, lontrinha! 🦦','Ele acenou de volta… e sumiu 🫧'],t1:['Ele escapou de novo 😭','Até daqui a 3 dias úteis, marido'],share:'Peguei o Boat {n} vezes no Catch Boat! ⛵🦦 Consegue me superar?'},
+es:{h2:'Aparece, saluda… y desaparece 🫧',p:'¡Atrapa a Boat antes de que desaparezca de My Sea!',r1:'⛵ Toca la nutria con el <b>sombrero de barquito de papel</b> → <b>+1</b>',r2:'🦦 Tocas a otra Narna → <b>−1</b> (¡solo estaba saludando!)',r3:'⚡ Cada vez es más rápido…',play:'Jugar',again:'Jugar otra vez',copy:'Copiar puntaje',copied:'¡Copiado! Pégalo en My Sea 🦦',more:'más juegos de Narna',hi:'¡Hola Narna! 👋',
+ t4:['Material de esposa oficial 💍','Se quedó en My Sea solo por ti 🥹'],t3:['¡Narna top! 🏆','Seguro vio tus mensajes 💌'],t2:['¡Nada mal, nutria! 🦦','Te saludó… y desapareció 🫧'],t1:['Se escapó otra vez 😭','Nos vemos en 3 días hábiles, esposo'],share:'¡Atrapé a Boat {n} veces en Catch Boat! ⛵🦦 ¿Puedes superarme?'},
+th:{h2:'โผล่มา ทักทาย… แล้วก็หายไป 🫧',p:'จับ Boat ให้ทันก่อนเขาหายไปจาก My Sea!',r1:'⛵ แตะนากที่ใส่<b>หมวกเรือกระดาษ</b> → <b>+1</b>',r2:'🦦 แตะ Narna ตัวอื่น → <b>−1</b> (เธอแค่มาทักทายเฉย ๆ!)',r3:'⚡ เขาจะเร็วขึ้นเรื่อย ๆ…',play:'เล่นเลย',again:'เล่นอีกครั้ง',copy:'คัดลอกคะแนน',copied:'คัดลอกแล้ว! ส่งใน My Sea ได้เลย 🦦',more:'เกมอื่น ๆ ของ Narna',hi:'หวัดดี Narna! 👋',
+ t4:['ว่าที่ภรรยาตัวจริง 💍','เขาอยู่ใน My Sea เพื่อคุณคนเดียวเลย 🥹'],t3:['สุดยอด Narna! 🏆','เขาเห็นข้อความของคุณแน่นอน 💌'],t2:['ไม่เลวนะ น้องนาก! 🦦','เขาโบกมือกลับ… แล้วก็หายไป 🫧'],t1:['เขาหนีไปอีกแล้ว 😭','เจอกันอีกทีในอีก 3 วันทำการนะ สามี'],share:'จับ Boat ได้ {n} ครั้งใน Catch Boat! ⛵🦦 มาแข่งกันไหม?'}};
+</script>
+<script src="../shared/lang.js"></script>
 <script>
 const BR='#8E5F3D', DK='#73492D', CR='#EED6B6', INK='#2A1A10', BL='#F59FAE', BLUE='#3B6EA8';
 const heart=(x,y,s,c)=>`<path transform="translate(${x} ${y}) scale(${s})" d="M0 8 C-14 -6 -6 -20 0 -10 C6 -20 14 -6 0 8Z" fill="${c}"/>`;
@@ -140,7 +155,7 @@ function spawn(){
     const h=holes[idx];h.busy=true;
     const isBoat=Math.random()<0.38;h.kind=isBoat?'boat':'narna';
     h.pop.innerHTML=isBoat?BOAT:svgOf({eyes:pick(eyesL),mouth:pick(['smile','open']),paws:pick(pawsL),hat:hats[pick(decoyHats)]});
-    if(isBoat){const s=document.createElement('div');s.className='say';s.textContent='Hi Narna! 👋';h.el.appendChild(s);}
+    if(isBoat){const s=document.createElement('div');s.className='say';s.textContent=T('hi');h.el.appendChild(s);}
     requestAnimationFrame(()=>h.pop.classList.add('up'));
     const life=isBoat?Math.max(520,1150-elapsed*22):Math.max(700,1400-elapsed*20);
     h.timer=setTimeout(()=>{if(h.kind==='boat')fx(h,'poof 🫧','#8EC3EC');hide(idx)},life);
@@ -164,14 +179,11 @@ function end(){
   running=false;clearInterval(clockT);clearTimeout(spawnT);holes.forEach((h,i)=>hide(i));
   if(score>best){best=score;try{localStorage.setItem('catchBoatBest',best)}catch(e){};$('best').textContent=best;}
   $('final').textContent=score;
-  const m=score>=25?['Official wife material 💍','He stayed in My Sea just for you 🥹']:
-          score>=15?['Top Narna! 🏆','He definitely saw your messages 💌']:
-          score>=8?['Not bad, otter! 🦦','He waved back… then vanished 🫧']:
-                   ['He got away again 😭','See you in 3 business days, husband'];
+  const m=T(score>=25?'t4':score>=15?'t3':score>=8?'t2':'t1');
   $('title').textContent=m[0];$('msg').textContent=m[1];$('end').hidden=false;
 }
 $('go').onclick=start;$('again').onclick=start;
-$('copy').onclick=async()=>{const t=`I caught Boat ${score} times in Catch Boat! ⛵🦦 Can you beat me? ${location.href}`;
+$('copy').onclick=async()=>{const t=T('share',{n:score})+' '+location.href;
   try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove()}
   $('copied').hidden=false;};
 </script></body></html>

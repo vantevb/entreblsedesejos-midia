@@ -1,66 +1,670 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:title" content="Which KNOT character are you? 🦦"><meta property="og:description" content="A little quiz for Narnas &amp; THUR">
 <title>KNOT Quiz</title>
+<meta name="description" content="Which KNOT character are you? Side couples included! A fan-made quiz for Narnas & THUR.">
+<meta property="og:title" content="KNOT Quiz 🦦"><meta property="og:description" content="Which KNOT character are you? Side couples included! A fan-made quiz for Narnas & THUR.">
+<meta property="og:image" content="https://vantevb.github.io/entreblsedesejos-midia/knot-quiz/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://vantevb.github.io/entreblsedesejos-midia/knot-quiz/"><meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap">
 <style>
 :root{--ink:#2F4A6B;--blue:#3B6EA8;--pink:#E8638F}
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;font-family:Fredoka,ui-rounded,system-ui,sans-serif;color:var(--ink);background:linear-gradient(180deg,#DDF2FF,#FFF0F5)}
-main{max-width:480px;margin:0 auto;padding:28px 16px 40px}
-h1{text-align:center;margin:0;font-size:40px;line-height:1.1;color:#fff;-webkit-text-stroke:6px var(--blue);paint-order:stroke fill;text-shadow:0 5px 0 #8EC3EC}
+main{max-width:480px;margin:0 auto;padding:20px 16px 40px}
+h1{text-align:center;margin:0;font-size:38px;line-height:1.12;color:#fff;-webkit-text-stroke:6px var(--blue);paint-order:stroke fill;text-shadow:0 5px 0 #8EC3EC}
 .sub{text-align:center;font-size:17px;margin:12px 0 22px}
 .card{background:#fff;border-radius:26px;padding:22px;box-shadow:0 8px 0 #BFE0F7}
 .prog{height:10px;background:#E6F2FC;border-radius:10px;overflow:hidden;margin-bottom:16px}
-.prog i{display:block;height:100%;background:#7FB8E8;width:0;transition:width .3s}
+.prog i{display:block;height:100%;background:#7FB8E8;transition:width .3s}
 .q{font-size:22px;font-weight:600;color:var(--blue);margin:0 0 16px}
-button{font:inherit;cursor:pointer;border:0}
+.card button{font:inherit;cursor:pointer;border:0}
 .opt{display:block;width:100%;text-align:left;background:#F1F8FF;color:var(--ink);font-size:17px;padding:14px 16px;border-radius:18px;margin:10px 0;box-shadow:0 4px 0 #CFE6F8}
 .opt:active{transform:translateY(3px);box-shadow:0 1px 0 #CFE6F8}
 .big{font-size:64px;text-align:center}
-.rn{text-align:center;font-size:34px;font-weight:700;color:var(--pink);margin:6px 0}
+.rn{text-align:center;font-size:32px;font-weight:700;color:var(--pink);margin:6px 0}
 .by{text-align:center;font-size:15px;color:#7D8DA3;margin-bottom:12px}
 .rd{font-size:18px;line-height:1.45}
-.row{display:flex;gap:10px;margin-top:18px}
+.row{display:flex;gap:10px;margin-top:14px}
 .row button{flex:1;padding:14px;border-radius:18px;font-size:17px;font-weight:600;background:var(--blue);color:#fff;box-shadow:0 4px 0 #2A5180}
-.row button.alt{background:#fff;color:var(--blue);border:2px solid #A9D3F2;box-shadow:0 4px 0 #CFE6F8}
+.row button.alt{background:#fff;color:var(--blue);border:2px solid #A9D3F2;box-shadow:0 4px 0 #CFE6F8;font-size:15px}
+.msg{text-align:center;font-size:14px;color:#7D8DA3;min-height:1em;margin:10px 0 0}
 .foot{text-align:center;font-size:13px;color:#7D8DA3;margin-top:22px}
-.foot a{color:var(--blue)}
+.foot a{color:var(--blue);font-size:15px}
 </style></head><body><main>
-<h1>Which KNOT<br>character are you?</h1>
-<p class="sub">6 questions · couples included · just for fun 🦦🤍</p>
+<div class="langbox"></div>
+<h1 data-i18n="title"></h1>
+<p class="sub" data-i18n="sub"></p>
 <div class="card" id="box"></div>
-<p class="foot">Fan-made for Narnas &amp; THUR by @entreblsedesejos · not official<br><a href="../narna-games/">More games →</a></p>
+<p class="foot"><a href="../narna-games/" data-i18n="more"></a><br><span data-i18n="foot"></span></p>
 </main>
 <script>
-const R={
- K:{e:'🐺',n:'Nakhun',by:'played by Boat 🦦',d:'Intense, protective and impossible to ignore. Like Nakhun, your big challenge is choosing to protect without controlling, and loving with your whole heart, not just instinct 🖤'},
- P:{e:'🌙',n:'Phatsa',by:'played by Oat',d:'Soft on the surface, strong at heart. Like Phatsa, you stand between fate and your own choices, and you only trust when it\'s real 💜'},
- O:{e:'⚡',n:'Nakhin & Ongsa',by:'played by Theme & Thee',d:'The couple that starts with conflict and mutual annoyance before it turns into something deeper. If you bicker with your crush, this is you 😂'},
- Y:{e:'🌸',n:'Naphitch & Sangnuea',by:'played by James & Folk',d:'The younger couple with soft, sweet romantic energy. You bring the cute moments everyone needs 🥹'}
+window.QUIZ={"path": "knot-quiz", "keys": ["K", "P", "O", "Y"], "emoji": {"K": "🐺", "P": "🌙", "O": "⚡", "Y": "🌸"}};
+window.I18N={
+"en": {
+"title": "Which KNOT<br>character are you?",
+"sub": "6 questions · couples included · just for fun 🦦🤍",
+"cardTop": "KNOT QUIZ",
+"share": "I got {n} {e} in the KNOT quiz! 🦦 Which one are you?",
+"q": [
+[
+"Someone you like walks into the room. You…",
+[
+[
+"K",
+"Stand closer. Nobody else gets near them 😤"
+],
+[
+"Y",
+"Blush and hide behind your friends 🙈"
+],
+[
+"P",
+"Try to act normal while your heart panics"
+],
+[
+"O",
+"Say something annoying on purpose 😏"
+]
+]
+],
+[
+"Your idea of a perfect date:",
+[
+[
+"O",
+"A competition: bowling or karaoke, loser pays 😂"
+],
+[
+"K",
+"Taking care of every detail so they feel safe"
+],
+[
+"Y",
+"Ice cream and a long walk holding hands"
+],
+[
+"P",
+"Somewhere quiet where you can really talk"
+]
+]
+],
+[
+"When you argue with someone you love…",
+[
+[
+"P",
+"You need space to figure out what YOU feel"
+],
+[
+"O",
+"Arguing IS the flirting"
+],
+[
+"K",
+"You get protective, maybe a little too much"
+],
+[
+"Y",
+"You make up in five minutes. You can't stay mad"
+]
+]
+],
+[
+"Fate or choice?",
+[
+[
+"Y",
+"Both, as long as it's sweet"
+],
+[
+"P",
+"Choice. I decide who I belong to"
+],
+[
+"O",
+"Neither. I argue with both 😂"
+],
+[
+"K",
+"Fate. When it's meant to be, you just know"
+]
+]
+],
+[
+"Your friends say you're…",
+[
+[
+"K",
+"Intense, but loyal to the end"
+],
+[
+"O",
+"Stubborn and impossible to ignore"
+],
+[
+"P",
+"Gentle on the outside, strong on the inside"
+],
+[
+"Y",
+"Pure sunshine"
+]
+]
+],
+[
+"Pick a vibe:",
+[
+[
+"O",
+"⚡ Sparks and chaos"
+],
+[
+"Y",
+"🌸 Spring, soft and cute"
+],
+[
+"K",
+"🌑 Night, tension, slow burn"
+],
+[
+"P",
+"🌧️ Rain on the window, deep thoughts"
+]
+]
+]
+],
+"r": {
+"K": {
+"n": "Nakhun",
+"by": "played by Boat 🦦",
+"d": "Intense, protective and impossible to ignore. Like Nakhun, your big challenge is choosing to protect without controlling, and loving with your whole heart, not just instinct 🖤"
+},
+"P": {
+"n": "Phatsa",
+"by": "played by Oat",
+"d": "Soft on the surface, strong at heart. Like Phatsa, you stand between fate and your own choices, and you only trust when it's real 💜"
+},
+"O": {
+"n": "Nakhin & Ongsa",
+"by": "played by Theme & Thee",
+"d": "The couple that starts with conflict and mutual annoyance before it turns into something deeper. If you bicker with your crush, this is you 😂"
+},
+"Y": {
+"n": "Naphitch & Sangnuea",
+"by": "played by James & Folk",
+"d": "The younger couple with soft, sweet romantic energy. You bring the cute moments everyone needs 🥹"
+}
+}
+},
+"pt": {
+"title": "Qual personagem de<br>KNOT é você?",
+"sub": "6 perguntas · com os casais · só pra brincar 🦦🤍",
+"cardTop": "QUIZ KNOT",
+"share": "Deu {n} {e} no quiz de KNOT! 🦦 Qual é você?",
+"q": [
+[
+"Alguém de quem você gosta entra na sala. Você…",
+[
+[
+"K",
+"Chega mais perto. Ninguém mais se aproxima 😤"
+],
+[
+"Y",
+"Fica vermelha e se esconde atrás das amigas 🙈"
+],
+[
+"P",
+"Tenta agir normal enquanto o coração dispara"
+],
+[
+"O",
+"Fala alguma coisa irritante de propósito 😏"
+]
+]
+],
+[
+"Seu encontro perfeito:",
+[
+[
+"O",
+"Uma competição: boliche ou karaokê, quem perder paga 😂"
+],
+[
+"K",
+"Cuidar de cada detalhe pra pessoa se sentir segura"
+],
+[
+"Y",
+"Sorvete e uma caminhada longa de mãos dadas"
+],
+[
+"P",
+"Um lugar tranquilo onde dá pra conversar de verdade"
+]
+]
+],
+[
+"Quando você briga com quem ama…",
+[
+[
+"P",
+"Precisa de espaço pra entender o que VOCÊ sente"
+],
+[
+"O",
+"Brigar É flertar"
+],
+[
+"K",
+"Fica protetora, talvez até demais"
+],
+[
+"Y",
+"Faz as pazes em cinco minutos. Não consegue ficar brava"
+]
+]
+],
+[
+"Destino ou escolha?",
+[
+[
+"Y",
+"Os dois, desde que seja fofo"
+],
+[
+"P",
+"Escolha. Eu decido a quem pertenço"
+],
+[
+"O",
+"Nenhum. Eu discuto com os dois 😂"
+],
+[
+"K",
+"Destino. Quando tem que ser, você sabe"
+]
+]
+],
+[
+"Seus amigos dizem que você é…",
+[
+[
+"K",
+"Intensa, mas leal até o fim"
+],
+[
+"O",
+"Teimosa e impossível de ignorar"
+],
+[
+"P",
+"Gentil por fora, forte por dentro"
+],
+[
+"Y",
+"Puro raio de sol"
+]
+]
+],
+[
+"Escolha uma vibe:",
+[
+[
+"O",
+"⚡ Faíscas e caos"
+],
+[
+"Y",
+"🌸 Primavera, leve e fofa"
+],
+[
+"K",
+"🌑 Noite, tensão, slow burn"
+],
+[
+"P",
+"🌧️ Chuva na janela, pensamentos profundos"
+]
+]
+]
+],
+"r": {
+"K": {
+"n": "Nakhun",
+"by": "vivido pelo Boat 🦦",
+"d": "Intenso, protetor e impossível de ignorar. Como o Nakhun, seu grande desafio é proteger sem controlar e amar com o coração inteiro, não só por instinto 🖤"
+},
+"P": {
+"n": "Phatsa",
+"by": "vivido pelo Oat",
+"d": "Suave por fora, forte por dentro. Como o Phatsa, você fica entre o destino e as suas próprias escolhas, e só confia quando é de verdade 💜"
+},
+"O": {
+"n": "Nakhin & Ongsa",
+"by": "vividos por Theme & Thee",
+"d": "O casal que começa com briga e implicância antes de virar algo mais profundo. Se você vive implicando com o crush, é você 😂"
+},
+"Y": {
+"n": "Naphitch & Sangnuea",
+"by": "vividos por James & Folk",
+"d": "O casal mais novo, com uma energia romântica leve e doce. Você traz os momentos fofos que todo mundo precisa 🥹"
+}
+}
+},
+"es": {
+"title": "¿Qué personaje de<br>KNOT eres?",
+"sub": "6 preguntas · con las parejas · solo por diversión 🦦🤍",
+"cardTop": "QUIZ KNOT",
+"share": "¡Me salió {n} {e} en el quiz de KNOT! 🦦 ¿Cuál eres tú?",
+"q": [
+[
+"Alguien que te gusta entra a la sala. Tú…",
+[
+[
+"K",
+"Te acercas más. Nadie más se le acerca 😤"
+],
+[
+"Y",
+"Te sonrojas y te escondes detrás de tus amigas 🙈"
+],
+[
+"P",
+"Intentas actuar normal mientras tu corazón entra en pánico"
+],
+[
+"O",
+"Dices algo molesto a propósito 😏"
+]
+]
+],
+[
+"Tu cita perfecta:",
+[
+[
+"O",
+"Una competencia: bolos o karaoke, quien pierde paga 😂"
+],
+[
+"K",
+"Cuidar cada detalle para que se sienta seguro"
+],
+[
+"Y",
+"Helado y un paseo largo tomados de la mano"
+],
+[
+"P",
+"Un lugar tranquilo donde puedan hablar de verdad"
+]
+]
+],
+[
+"Cuando discutes con alguien que amas…",
+[
+[
+"P",
+"Necesitas espacio para entender lo que TÚ sientes"
+],
+[
+"O",
+"Discutir ES coquetear"
+],
+[
+"K",
+"Te vuelves protectora, quizás demasiado"
+],
+[
+"Y",
+"Se reconcilian en cinco minutos. No puedes seguir enojada"
+]
+]
+],
+[
+"¿Destino o elección?",
+[
+[
+"Y",
+"Ambos, mientras sea tierno"
+],
+[
+"P",
+"Elección. Yo decido a quién pertenezco"
+],
+[
+"O",
+"Ninguno. Discuto con los dos 😂"
+],
+[
+"K",
+"Destino. Cuando tiene que ser, simplemente lo sabes"
+]
+]
+],
+[
+"Tus amigos dicen que eres…",
+[
+[
+"K",
+"Intensa, pero leal hasta el final"
+],
+[
+"O",
+"Terca e imposible de ignorar"
+],
+[
+"P",
+"Suave por fuera, fuerte por dentro"
+],
+[
+"Y",
+"Puro sol"
+]
+]
+],
+[
+"Elige una vibra:",
+[
+[
+"O",
+"⚡ Chispas y caos"
+],
+[
+"Y",
+"🌸 Primavera, suave y tierna"
+],
+[
+"K",
+"🌑 Noche, tensión, slow burn"
+],
+[
+"P",
+"🌧️ Lluvia en la ventana, pensamientos profundos"
+]
+]
+]
+],
+"r": {
+"K": {
+"n": "Nakhun",
+"by": "interpretado por Boat 🦦",
+"d": "Intenso, protector e imposible de ignorar. Como Nakhun, tu gran reto es proteger sin controlar y amar con todo el corazón, no solo por instinto 🖤"
+},
+"P": {
+"n": "Phatsa",
+"by": "interpretado por Oat",
+"d": "Suave por fuera, fuerte por dentro. Como Phatsa, estás entre el destino y tus propias decisiones, y solo confías cuando es real 💜"
+},
+"O": {
+"n": "Nakhin & Ongsa",
+"by": "interpretados por Theme y Thee",
+"d": "La pareja que empieza con peleas y fastidio mutuo antes de convertirse en algo más profundo. Si vives discutiendo con tu crush, esta eres tú 😂"
+},
+"Y": {
+"n": "Naphitch & Sangnuea",
+"by": "interpretados por James y Folk",
+"d": "La pareja más joven, con una energía romántica suave y dulce. Traes los momentos tiernos que todos necesitan 🥹"
+}
+}
+},
+"th": {
+"title": "คุณคือตัวละครไหน<br>ใน KNOT?",
+"sub": "6 คำถาม · รวมคู่รองด้วย · เล่นสนุก ๆ 🦦🤍",
+"cardTop": "ควิซ KNOT",
+"share": "ได้ {n} {e} ในควิซ KNOT! 🦦 แล้วคุณล่ะเป็นใคร?",
+"q": [
+[
+"คนที่คุณชอบเดินเข้ามาในห้อง คุณจะ…",
+[
+[
+"K",
+"ขยับเข้าไปใกล้ ไม่ให้ใครเข้าใกล้เขา 😤"
+],
+[
+"Y",
+"หน้าแดงแล้วหลบหลังเพื่อน 🙈"
+],
+[
+"P",
+"พยายามทำตัวปกติ ทั้งที่ใจเต้นแรง"
+],
+[
+"O",
+"จงใจพูดอะไรกวน ๆ 😏"
+]
+]
+],
+[
+"เดทในฝันของคุณ:",
+[
+[
+"O",
+"แข่งกัน โบว์ลิ่งหรือคาราโอเกะ ใครแพ้จ่าย 😂"
+],
+[
+"K",
+"ดูแลทุกรายละเอียดให้เขารู้สึกปลอดภัย"
+],
+[
+"Y",
+"กินไอติมแล้วเดินจับมือกันนาน ๆ"
+],
+[
+"P",
+"ที่เงียบ ๆ ที่ได้คุยกันจริง ๆ"
+]
+]
+],
+[
+"เวลาทะเลาะกับคนที่รัก…",
+[
+[
+"P",
+"ต้องการเวลาคิดว่าตัวเองรู้สึกยังไง"
+],
+[
+"O",
+"การทะเลาะคือการจีบ"
+],
+[
+"K",
+"หวงและปกป้อง อาจจะมากไปหน่อย"
+],
+[
+"Y",
+"ห้านาทีก็ดีกันแล้ว โกรธนานไม่ได้"
+]
+]
+],
+[
+"พรหมลิขิตหรือการเลือก?",
+[
+[
+"Y",
+"ทั้งสองอย่าง ขอแค่น่ารัก"
+],
+[
+"P",
+"การเลือก ฉันเลือกเองว่าจะเป็นของใคร"
+],
+[
+"O",
+"ไม่ทั้งคู่ เถียงได้หมด 😂"
+],
+[
+"K",
+"พรหมลิขิต ถ้าใช่ก็รู้เอง"
+]
+]
+],
+[
+"เพื่อน ๆ บอกว่าคุณเป็นคน…",
+[
+[
+"K",
+"เข้มข้น แต่ภักดีจนถึงที่สุด"
+],
+[
+"O",
+"ดื้อ และไม่มีใครมองข้ามได้"
+],
+[
+"P",
+"อ่อนโยนภายนอก แข็งแกร่งภายใน"
+],
+[
+"Y",
+"สดใสเหมือนแสงแดด"
+]
+]
+],
+[
+"เลือกบรรยากาศ:",
+[
+[
+"O",
+"⚡ ประกายไฟและความวุ่นวาย"
+],
+[
+"Y",
+"🌸 ฤดูใบไม้ผลิ นุ่มนวลน่ารัก"
+],
+[
+"K",
+"🌑 กลางคืน ความตึงเครียด ค่อย ๆ หวั่นไหว"
+],
+[
+"P",
+"🌧️ ฝนตกที่หน้าต่าง ความคิดลึกซึ้ง"
+]
+]
+]
+],
+"r": {
+"K": {
+"n": "Nakhun",
+"by": "รับบทโดย Boat 🦦",
+"d": "เข้มข้น ปกป้อง และไม่มีใครมองข้ามได้ เหมือน Nakhun ความท้าทายของคุณคือการปกป้องโดยไม่ควบคุม และรักด้วยหัวใจ ไม่ใช่แค่สัญชาตญาณ 🖤"
+},
+"P": {
+"n": "Phatsa",
+"by": "รับบทโดย Oat",
+"d": "ภายนอกอ่อนโยน ภายในแข็งแกร่ง เหมือน Phatsa คุณยืนอยู่ระหว่างโชคชะตากับทางเลือกของตัวเอง และจะไว้ใจเมื่อมันเป็นของจริงเท่านั้น 💜"
+},
+"O": {
+"n": "Nakhin & Ongsa",
+"by": "รับบทโดย Theme & Thee",
+"d": "คู่ที่เริ่มจากการทะเลาะและหมั่นไส้กัน ก่อนจะกลายเป็นความรู้สึกที่ลึกซึ้ง ถ้าคุณชอบเถียงกับคนที่แอบชอบ นี่แหละคุณ 😂"
+},
+"Y": {
+"n": "Naphitch & Sangnuea",
+"by": "รับบทโดย James & Folk",
+"d": "คู่ที่อายุน้อยที่สุด พลังความรักนุ่มนวลและหวาน คุณคือโมเมนต์น่ารักที่ทุกคนต้องการ 🥹"
+}
+}
+}
 };
-const Q=[
- ['Someone you like walks into the room. You…',[['K','Stand closer. Nobody else gets near them 😤'],['Y','Blush and hide behind your friends 🙈'],['P','Try to act normal while your heart panics'],['O','Say something annoying on purpose 😏']]],
- ['Your idea of a perfect date:',[['O','A competition: bowling or karaoke, loser pays 😂'],['K','Taking care of every detail so they feel safe'],['Y','Ice cream and a long walk holding hands'],['P','Somewhere quiet where you can really talk']]],
- ['When you argue with someone you love…',[['P','You need space to figure out what YOU feel'],['O','Arguing IS the flirting'],['K','You get protective, maybe a little too much'],['Y','You make up in five minutes. You can\'t stay mad']]],
- ['Fate or choice?',[['Y','Both, as long as it\'s sweet'],['P','Choice. I decide who I belong to'],['O','Neither. I argue with both 😂'],['K','Fate. When it\'s meant to be, you just know']]],
- ['Your friends say you\'re…',[['K','Intense, but loyal to the end'],['O','Stubborn and impossible to ignore'],['P','Gentle on the outside, strong on the inside'],['Y','Pure sunshine']]],
- ['Pick a vibe:',[['O','⚡ Sparks and chaos'],['Y','🌸 Spring, soft and cute'],['K','🌑 Night, tension, slow burn'],['P','🌧️ Rain on the window, deep thoughts']]]
-];
-const box=document.getElementById('box');let i=0,sc={K:0,P:0,O:0,Y:0};
-function show(){
- if(i>=Q.length)return result();
- const [q,os]=Q[i];
- box.innerHTML=`<div class="prog"><i style="width:${i/Q.length*100}%"></i></div><p class="q">${i+1}. ${q}</p>`+os.map(([k,t])=>`<button class="opt" data-k="${k}">${t}</button>`).join('');
- box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{sc[b.dataset.k]++;i++;show()});
-}
-function result(){
- const k=['K','P','O','Y'].sort((a,b)=>sc[b]-sc[a])[0],r=R[k];
- box.innerHTML=`<div class="big">${r.e}</div><div class="rn">You're ${r.n}!</div><div class="by">${r.by}</div><p class="rd">${r.d}</p>
- <div class="row"><button id="again">Play again</button><button class="alt" id="copy">Copy result</button></div>`;
- document.getElementById('again').onclick=()=>{i=0;sc={K:0,P:0,O:0,Y:0};show()};
- document.getElementById('copy').onclick=async e=>{const t=`I got ${r.n} ${r.e} in the KNOT quiz! 🦦 Which one are you? ${location.href}`;
-  try{await navigator.clipboard.writeText(t)}catch(_){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(__){}a.remove()}
-  e.target.textContent='Copied! 🤍'};
-}
-show();
-</script></body></html>
+</script>
+<script src="../shared/lang.js"></script>
+<script src="../shared/quiz.js"></script>
+</body></html>

@@ -1,4 +1,7 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta property="og:title" content="Narna Catch 🦦"><meta property="og:description" content="Help the Narna otter catch fish!"><title>Narna Catch</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta property="og:title" content="Narna Catch 🐟"><meta property="og:description" content="Help the little otter catch fish!">
+<meta property="og:image" content="https://vantevb.github.io/entreblsedesejos-midia/narna-catch/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://vantevb.github.io/entreblsedesejos-midia/narna-catch/"><meta name="twitter:card" content="summary_large_image">
+<title>Narna Catch</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
@@ -33,6 +36,7 @@ button.ghost{background:#EEF3F8;color:var(--ink);box-shadow:0 5px 0 var(--line);
 .best{color:var(--soft);font-weight:600;margin:6px 0 16px}
 .msg{min-height:20px;font-size:14px;color:var(--soft);margin-top:8px}
 .foot{margin-top:14px;font-size:12px;letter-spacing:2px;color:#A8B6C7;font-weight:600}
+.more{display:block;margin-top:12px;font-size:14px;color:#3B6EA8}
 </style></head><body>
 
 <div id="wrap">
@@ -42,28 +46,38 @@ button.ghost{background:#EEF3F8;color:var(--ink);box-shadow:0 5px 0 var(--line);
   <div class="ov" id="start">
     <div class="box">
       <h1>NARNA<br>CATCH</h1>
-      <p class="sub">Help the little otter catch fish! Drag, tap the sides or use the arrow keys to swim.</p>
+      <p class="sub" data-i18n="sub"></p>
       <div class="legend">
-        <div>🐟 Fish +1</div><div>🐠 Golden fish +5</div>
-        <div>🐚 Shell +2</div><div>🦀 Crab: lose a heart</div>
+        <div data-i18n="fish"></div><div data-i18n="gold"></div>
+        <div data-i18n="shell"></div><div data-i18n="crab"></div>
       </div>
-      <button id="play">Play</button>
+      <button id="play" data-i18n="play"></button>
       <div class="foot">🤍 MADE FOR NARNA · ENTRE BLs &amp; DESEJOS</div>
+      <div class="langbox" style="margin-top:12px"></div>
     </div>
   </div>
 
   <div class="ov" id="over" hidden>
     <div class="box">
-      <div class="sub" style="margin:0 0 6px">You caught</div>
+      <div class="sub" style="margin:0 0 6px" data-i18n="caught"></div>
       <div class="big" id="final">0</div>
       <div class="best" id="best">Best: 0</div>
-      <button id="again">Play again</button><br>
-      <button class="ghost" id="copy">Copy my score</button>
+      <button id="again" data-i18n="again"></button><br>
+      <button class="ghost" id="copy" data-i18n="copy"></button>
       <div class="msg" id="copymsg" aria-live="polite"></div>
+      <a class="more" href="../narna-games/" data-i18n="more"></a>
     </div>
   </div>
 </div>
 
+<script>
+window.I18N={
+en:{sub:'Help the little otter catch fish! Drag, tap the sides or use the arrow keys to swim.',fish:'🐟 Fish +1',gold:'🐠 Golden fish +5',shell:'🐚 Shell +2',crab:'🦀 Crab: lose a heart',play:'Play',caught:'You caught',point:'point',points:'points',best:'Best:',again:'Play again',copy:'Copy my score',copyText:'I scored {n} in Narna Catch! 🦦🐟 Can you beat me?',copied:'Copied! Paste it in the group 🤍',more:'More Narna games →'},
+pt:{sub:'Ajude a lontrinha a pegar peixes! Arraste, toque nas laterais ou use as setas para nadar.',fish:'🐟 Peixe +1',gold:'🐠 Peixe dourado +5',shell:'🐚 Concha +2',crab:'🦀 Caranguejo: perde um coração',play:'Jogar',caught:'Você pegou',point:'ponto',points:'pontos',best:'Recorde:',again:'Jogar de novo',copy:'Copiar minha pontuação',copyText:'Fiz {n} pontos no Narna Catch! 🦦🐟 Consegue me superar?',copied:'Copiado! Cola no grupo 🤍',more:'Mais jogos das Narnas →'},
+es:{sub:'¡Ayuda a la nutria a atrapar peces! Arrastra, toca los lados o usa las flechas para nadar.',fish:'🐟 Pez +1',gold:'🐠 Pez dorado +5',shell:'🐚 Concha +2',crab:'🦀 Cangrejo: pierdes un corazón',play:'Jugar',caught:'Atrapaste',point:'punto',points:'puntos',best:'Récord:',again:'Jugar otra vez',copy:'Copiar mi puntaje',copyText:'¡Hice {n} puntos en Narna Catch! 🦦🐟 ¿Puedes superarme?',copied:'¡Copiado! Pégalo en el grupo 🤍',more:'Más juegos de Narna →'},
+th:{sub:'ช่วยน้องนากจับปลากันเถอะ! ลาก แตะด้านข้าง หรือใช้ปุ่มลูกศรเพื่อว่ายน้ำ',fish:'🐟 ปลา +1',gold:'🐠 ปลาทอง +5',shell:'🐚 เปลือกหอย +2',crab:'🦀 ปู: เสียหัวใจ 1 ดวง',play:'เล่นเลย',caught:'คุณจับได้',point:'คะแนน',points:'คะแนน',best:'สถิติ:',again:'เล่นอีกครั้ง',copy:'คัดลอกคะแนน',copyText:'ได้ {n} คะแนนใน Narna Catch! 🦦🐟 มาแข่งกันไหม?',copied:'คัดลอกแล้ว! ส่งในกลุ่มได้เลย 🤍',more:'เกมอื่น ๆ ของ Narna →'}};
+</script>
+<script src="../shared/lang.js"></script>
 <script>
 (function(){
 const OTTER_SRC='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMzAgLTE5MCAyNjAgMzAwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjMwMCI+CiAgICAgIDxlbGxpcHNlIGN4PSIwIiBjeT0iMTAwIiByeD0iMTAwIiByeT0iMTUwIiBmaWxsPSIjOEU1RjNEIi8+CiAgICAgIDxlbGxpcHNlIGN4PSIwIiBjeT0iMTI1IiByeD0iNjgiIHJ5PSIxMTAiIGZpbGw9IiNFRUQ2QjYiLz4KICAgICAgPGVsbGlwc2UgY3g9IjAiIGN5PSItNTgiIHJ4PSIxMTgiIHJ5PSI4NCIgZmlsbD0iIzhFNUYzRCIvPgogICAgICA8Y2lyY2xlIGN4PSItMTA2IiBjeT0iLTkyIiByPSIxNSIgZmlsbD0iIzczNDkyRCIvPjxjaXJjbGUgY3g9Ii0xMDYiIGN5PSItOTIiIHI9IjciIGZpbGw9IiNEMkEwN0EiLz4KICAgICAgPGNpcmNsZSBjeD0iMTA2IiBjeT0iLTkyIiByPSIxNSIgZmlsbD0iIzczNDkyRCIvPjxjaXJjbGUgY3g9IjEwNiIgY3k9Ii05MiIgcj0iNyIgZmlsbD0iI0QyQTA3QSIvPgogICAgICA8cGF0aCBkPSJNLTEwMCAtMzAgUS05NiAyMiAwIDIyIFE5NiAyMiAxMDAgLTMwIFE3MCAtNjIgMCAtNjAgUS03MCAtNjIgLTEwMCAtMzBaIiBmaWxsPSIjRUVENkI2Ii8+CiAgICAgIDxlbGxpcHNlIGN4PSItNDQiIGN5PSItNzgiIHJ4PSIxMSIgcnk9IjEyIiBmaWxsPSIjMkExQTEwIi8+PGNpcmNsZSBjeD0iLTQwIiBjeT0iLTgyIiByPSI0IiBmaWxsPSIjZmZmIi8+CiAgICAgIDxlbGxpcHNlIGN4PSI0NCIgY3k9Ii03OCIgcng9IjExIiByeT0iMTIiIGZpbGw9IiMyQTFBMTAiLz48Y2lyY2xlIGN4PSI0OCIgY3k9Ii04MiIgcj0iNCIgZmlsbD0iI2ZmZiIvPgogICAgICA8ZWxsaXBzZSBjeD0iLTc0IiBjeT0iLTM0IiByeD0iMTciIHJ5PSI5IiBmaWxsPSIjRjU5RkFFIiBvcGFjaXR5PSIuNzUiLz4KICAgICAgPGVsbGlwc2UgY3g9Ijc0IiBjeT0iLTM0IiByeD0iMTciIHJ5PSI5IiBmaWxsPSIjRjU5RkFFIiBvcGFjaXR5PSIuNzUiLz4KICAgICAgPGVsbGlwc2UgY3g9IjAiIGN5PSItNDQiIHJ4PSIxOSIgcnk9IjEyIiBmaWxsPSIjMkExQTEwIi8+CiAgICAgIDxwYXRoIGQ9Ik0wIC0zMiBWLTI0IE0tMTUgLTIyIFEtNyAtMTIgMCAtMjQgUTcgLTEyIDE1IC0yMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMkExQTEwIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogICAgICA8ZyBzdHJva2U9IiM5Qzc2NTYiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj4KICAgICAgICA8cGF0aCBkPSJNLTM0IC0zMCBMLTgyIC00MCBNLTM0IC0yMiBMLTg0IC0yMCBNLTM0IC0xNCBMLTc4IC0yIi8+CiAgICAgICAgPHBhdGggZD0iTTM0IC0zMCBMODIgLTQwIE0zNCAtMjIgTDg0IC0yMCBNMzQgLTE0IEw3OCAtMiIvPgogICAgICA8L2c+CiAgICA8ZWxsaXBzZSBjeD0iLTYyIiBjeT0iMTgiIHJ4PSIyNiIgcnk9IjIwIiBmaWxsPSIjNzM0OTJEIi8+PGVsbGlwc2UgY3g9IjYyIiBjeT0iMTgiIHJ4PSIyNiIgcnk9IjIwIiBmaWxsPSIjNzM0OTJEIi8+PC9zdmc+';
@@ -167,10 +181,10 @@ function loop(now){
 }
 function start(){reset();S.running=true;$('start').hidden=true;$('over').hidden=true;$('hud').hidden=false;$('copymsg').textContent='';}
 function end(){S.running=false;if(S.score>best){best=S.score;try{localStorage.setItem('narnaBest',best)}catch(e){}}
-  $('final').textContent=S.score+(S.score===1?' point':' points');$('best').textContent='Best: '+best;$('over').hidden=false;$('hud').hidden=true;$('again').focus();}
+  $('final').textContent=S.score+' '+(S.score===1?T('point'):T('points'));$('best').textContent=T('best')+' '+best;$('over').hidden=false;$('hud').hidden=true;$('again').focus();}
 $('play').onclick=start;$('again').onclick=start;
-$('copy').onclick=()=>{const t='I scored '+S.score+' in Narna Catch! 🦦🐟 Can you beat me? #Narna';
-  navigator.clipboard.writeText(t).then(()=>$('copymsg').textContent='Copied! Paste it in the group 🤍').catch(()=>$('copymsg').textContent=t);};
+$('copy').onclick=()=>{const t=T('copyText',{n:S.score})+' '+location.href;
+  navigator.clipboard.writeText(t).then(()=>$('copymsg').textContent=T('copied')).catch(()=>$('copymsg').textContent=t);};
 S.x=S.target=W/2;requestAnimationFrame(loop);
 })();
 </script>
