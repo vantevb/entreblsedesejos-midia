@@ -1,0 +1,117 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>Catch the Concubine!</title>
+<meta name="description" content="She made a scene and now she's running away from My Sea. Catch her before she escapes!">
+<meta property="og:title" content="Catch the Concubine! 🧳🦦"><meta property="og:description" content="She made a scene and now she's running away from My Sea. Catch her before she escapes!">
+<meta property="og:image" content="https://vantevb.github.io/entreblsedesejos-midia/catch-the-concubine/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://vantevb.github.io/entreblsedesejos-midia/catch-the-concubine/"><meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;font-family:Fredoka,ui-rounded,system-ui,sans-serif;color:#2F4A6B;background:#DDF2FF;user-select:none;-webkit-user-select:none}
+#app{position:relative;max-width:520px;height:100%;margin:0 auto;display:flex;flex-direction:column}
+h1{margin:10px 0 4px;text-align:center;font-size:30px;color:#fff;-webkit-text-stroke:5px #3B6EA8;paint-order:stroke fill;text-shadow:0 4px 0 #8EC3EC}
+.hud{display:flex;justify-content:center;gap:8px;padding:4px 10px}
+.pill{background:#fff;border-radius:16px;padding:6px 12px;font-weight:600;font-size:16px;box-shadow:0 3px 0 #BFE0F7}
+#stage{position:relative;flex:1;margin:8px 10px;border-radius:26px;overflow:hidden;background:linear-gradient(180deg,#BFE6FF 0%,#8FD0F5 55%,#5DA9E6 100%);box-shadow:0 6px 0 #9CCBEB;touch-action:manipulation}
+#home{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:700;color:#fff;background:#3B6EA8;border-radius:12px;padding:6px 8px;text-align:center;writing-mode:vertical-rl;letter-spacing:.06em}
+#exit{position:absolute;right:0;top:0;bottom:0;width:58px;background:repeating-linear-gradient(180deg,#FFE3EC 0 18px,#FFF2F6 18px 36px);border-left:4px dashed #F29BB6;display:flex;align-items:center;justify-content:center}
+#exit span{writing-mode:vertical-rl;font-weight:700;color:#E8638F;font-size:15px;letter-spacing:.05em}
+.c{position:absolute;width:86px;height:96px;margin:-48px 0 0 -43px;cursor:pointer;transition:transform .15s}
+.c svg{width:100%;height:100%;overflow:visible;pointer-events:none}
+.c.bob svg{animation:bob .35s infinite alternate ease-in-out}
+@keyframes bob{to{transform:translateY(-5px) rotate(-3deg)}}
+.c.caught{transform:scale(1.15)}
+.say{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);white-space:nowrap;background:#fff;border-radius:12px;padding:3px 8px;font-size:12px;font-weight:600;color:#7A2F4A;box-shadow:0 2px 0 #F2C5D4;pointer-events:none}
+.fx{position:absolute;font-weight:700;font-size:22px;pointer-events:none;animation:up .8s forwards}
+@keyframes up{to{transform:translateY(-40px);opacity:0}}
+.foot{text-align:center;font-size:13px;color:#7D8DA3;padding:4px 0 10px}
+.foot a{color:#3B6EA8}
+.ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(221,242,255,.85);z-index:20;padding:16px}
+.ov[hidden]{display:none}
+.card{background:#fff;border-radius:26px;padding:22px;max-width:400px;width:100%;text-align:center;box-shadow:0 8px 0 #BFE0F7}
+.card h2{margin:0 0 8px;color:#3B6EA8;font-size:24px}
+.card p{margin:6px 0;font-size:16px;line-height:1.4}
+.rules{text-align:left;background:#F1F8FF;border-radius:16px;padding:10px 14px;margin:12px 0;font-size:15px;line-height:1.6}
+.big{font-size:56px;font-weight:700;color:#E8638F}
+button{font:inherit;cursor:pointer;border:0}
+.btn{background:#3B6EA8;color:#fff;font-weight:600;font-size:18px;padding:12px 26px;border-radius:18px;box-shadow:0 4px 0 #2A5180;margin:6px 4px}
+.btn.alt{background:#fff;color:#3B6EA8;border:2px solid #A9D3F2;box-shadow:0 4px 0 #CFE6F8}
+</style></head><body>
+<div id="app">
+ <h1 data-i18n="title"></h1>
+ <div class="hud"><span class="pill">🦦 <b id="sc">0</b></span><span class="pill" id="lives">💜💜💜</span><span class="pill">🏆 <b id="best">0</b></span></div>
+ <div id="stage"><div id="home">MY SEA 🦦</div><div id="exit"><span data-i18n="exit"></span></div></div>
+ <div class="foot"><a href="../narna-games/" data-i18n="more"></a> · made with 🤍 · @entreblsedesejos</div>
+ <div class="ov" id="start"><div class="card">
+  <h2 data-i18n="h2"></h2><p data-i18n="p"></p>
+  <div class="rules"><div data-i18n="r1"></div><div data-i18n="r2"></div><div data-i18n="r3"></div></div>
+  <button class="btn" id="go" data-i18n="play"></button>
+  <div class="langbox" style="margin-top:12px"></div>
+ </div></div>
+ <div class="ov" id="end" hidden><div class="card">
+  <h2 id="title"></h2><div class="big" id="final">0</div><p id="emsg"></p>
+  <button class="btn" id="again" data-i18n="again"></button><button class="btn alt" id="copy" data-i18n="copy"></button>
+  <p id="copied" style="font-size:14px;color:#7D8DA3" hidden data-i18n="copied"></p>
+ </div></div>
+</div>
+<script>
+window.I18N={
+en:{title:'Catch the Concubine! 🧳',exit:'NEW HUSBAND →',more:'more Narna games',h2:'She made a scene… and now she\'s leaving! 🧳',p:'A dramatic Narna packed her suitcase and is running away from My Sea. Bring her back!',r1:'🧳 Tap the otter with the <b>suitcase</b> → <b>+1</b>',r2:'🦦 Tap a Narna who\'s just swimming → <b>−1</b> (she wasn\'t leaving!)',r3:'💔 If she reaches the exit, you lose a heart',play:'Play',again:'Play again',copy:'Copy score',copied:'Copied! Paste it in My Sea 🦦',
+ caught:['Okay okay, I\'ll stay 😭','Fine… I love you all 🥹','It was just drama! 😂','Who said I was leaving? 👀'],oops:'I was just swimming! 😤',bye:'Bye bye! 👋',
+ e3:['Queen of the harem 👑','Nobody escapes My Sea on your watch 😂'],e2:['Good catch, Narna! 🦦','Most of the drama stayed in the group 🤭'],e1:['She ran away! 🧳💨','See you at the next dramatic comeback 😂'],share:'I caught the runaway concubine {n} times! 🧳🦦 Can you beat me?'},
+pt:{title:'Pegue a Concubina! 🧳',exit:'NOVO MARIDO →',more:'mais jogos das Narnas',h2:'Ela fez cena… e agora tá indo embora! 🧳',p:'Uma Narna dramática fez as malas e tá fugindo do My Sea. Traga ela de volta!',r1:'🧳 Toque na lontra com a <b>mala</b> → <b>+1</b>',r2:'🦦 Tocou numa Narna que só tava nadando → <b>−1</b> (ela não ia embora!)',r3:'💔 Se ela chegar na saída, você perde um coração',play:'Jogar',again:'Jogar de novo',copy:'Copiar pontuação',copied:'Copiado! Cola no My Sea 🦦',
+ caught:['Tá bom, tá bom, eu fico 😭','Ok… eu amo vocês 🥹','Era só drama! 😂','Quem disse que eu ia embora? 👀'],oops:'Eu só tava nadando! 😤',bye:'Tchau tchau! 👋',
+ e3:['Rainha do harém 👑','Ninguém foge do My Sea com você de guarda 😂'],e2:['Boa, Narna! 🦦','Quase todo o drama ficou no grupo 🤭'],e1:['Ela fugiu! 🧳💨','Até a próxima volta dramática 😂'],share:'Peguei a concubina fujona {n} vezes! 🧳🦦 Consegue me superar?'},
+es:{title:'¡Atrapa a la Concubina! 🧳',exit:'NUEVO ESPOSO →',more:'más juegos de Narna',h2:'Hizo un drama… ¡y ahora se va! 🧳',p:'Una Narna dramática hizo sus maletas y se escapa de My Sea. ¡Tráela de vuelta!',r1:'🧳 Toca la nutria con la <b>maleta</b> → <b>+1</b>',r2:'🦦 Tocas a una Narna que solo nadaba → <b>−1</b> (¡no se iba!)',r3:'💔 Si llega a la salida, pierdes un corazón',play:'Jugar',again:'Jugar otra vez',copy:'Copiar puntaje',copied:'¡Copiado! Pégalo en My Sea 🦦',
+ caught:['Está bien, me quedo 😭','Ok… los amo 🥹','¡Era solo drama! 😂','¿Quién dijo que me iba? 👀'],oops:'¡Solo estaba nadando! 😤',bye:'¡Adiós! 👋',
+ e3:['Reina del harén 👑','Nadie escapa de My Sea contigo de guardia 😂'],e2:['¡Bien hecho, Narna! 🦦','Casi todo el drama se quedó en el grupo 🤭'],e1:['¡Se escapó! 🧳💨','Nos vemos en el próximo regreso dramático 😂'],share:'¡Atrapé a la concubina fugitiva {n} veces! 🧳🦦 ¿Puedes superarme?'},
+th:{title:'จับนางสนมให้ทัน! 🧳',exit:'สามีใหม่ →',more:'เกมอื่น ๆ ของ Narna',h2:'เธอดราม่า… แล้วก็กำลังจะหนี! 🧳',p:'Narna ขี้ดราม่าเก็บกระเป๋าหนีออกจาก My Sea พาเธอกลับมาให้ได้!',r1:'🧳 แตะนากที่ถือ<b>กระเป๋า</b> → <b>+1</b>',r2:'🦦 แตะ Narna ที่แค่ว่ายน้ำ → <b>−1</b> (เธอไม่ได้จะหนี!)',r3:'💔 ถ้าเธอถึงทางออก เสียหัวใจ 1 ดวง',play:'เล่นเลย',again:'เล่นอีกครั้ง',copy:'คัดลอกคะแนน',copied:'คัดลอกแล้ว! ส่งใน My Sea ได้เลย 🦦',
+ caught:['โอเค ๆ อยู่ก็ได้ 😭','ก็ได้… รักทุกคนนะ 🥹','แค่ดราม่าเฉย ๆ! 😂','ใครบอกว่าจะไป 👀'],oops:'แค่ว่ายน้ำเฉย ๆ นะ! 😤',bye:'บ๊ายบาย! 👋',
+ e3:['ราชินีแห่งฮาเร็ม 👑','ไม่มีใครหนีออกจาก My Sea ได้เลย 😂'],e2:['จับเก่งมาก Narna! 🦦','ดราม่าส่วนใหญ่อยู่ในกลุ่มนะ 🤭'],e1:['เธอหนีไปแล้ว! 🧳💨','เจอกันตอนกลับมาแบบดราม่าครั้งหน้า 😂'],share:'จับนางสนมขี้หนีได้ {n} ครั้ง! 🧳🦦 มาแข่งกันไหม?'}};
+</script>
+<script src="../shared/lang.js"></script>
+<script src="../shared/otter.js"></script>
+<script>
+const $=id=>document.getElementById(id), stage=$('stage');
+const bow=`<g transform="translate(-62 -128)"><path d="M0 0 L-26 -16 L-26 16Z M0 0 L26 -16 L26 16Z" fill="#F06292" stroke="#C2405E" stroke-width="3" stroke-linejoin="round"/><circle r="8" fill="#C2405E"/></g>`;
+const bag=`<g transform="translate(118 70) rotate(8)"><rect x="-38" y="-30" width="76" height="60" rx="10" fill="#F29BB6" stroke="#C2405E" stroke-width="5"/><path d="M-14 -30 v-14 h28 v14" fill="none" stroke="#C2405E" stroke-width="6"/><path d="M-38 0 h76" stroke="#C2405E" stroke-width="4"/><text x="0" y="22" font-size="26" text-anchor="middle">💔</text></g>`;
+const RUN=`<svg viewBox="-200 -260 400 460">${otter({eyes:'teary',mouth:'sad',paws:'default',hat:bow})}${bag}</svg>`;
+const STAY=`<svg viewBox="-200 -260 400 460">${otter({eyes:'happy',mouth:'smile',paws:'heart'})}</svg>`;
+const SWIM=`<svg viewBox="-200 -260 400 460">${otter({eyes:'happy',mouth:'open',paws:'wave'})}</svg>`;
+let best=0;try{best=+localStorage.getItem('concubineBest')||0}catch(e){} $('best').textContent=best;
+let items=[],score=0,lives=3,running=false,last=0,elapsed=0,spawnT=0,raf;
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+function fx(x,y,t,c){const d=document.createElement('div');d.className='fx';d.textContent=t;d.style.left=x+'px';d.style.top=y+'px';d.style.color=c;stage.appendChild(d);setTimeout(()=>d.remove(),800)}
+function say(el,t,ms){const s=document.createElement('div');s.className='say';s.textContent=t;el.appendChild(s);setTimeout(()=>s.remove(),ms||900)}
+function spawn(){
+ const W=stage.clientWidth,H=stage.clientHeight,decoy=elapsed>6&&Math.random()<Math.min(.35,.12+elapsed/120);
+ const el=document.createElement('div');el.className='c bob';el.innerHTML=decoy?SWIM:RUN;
+ const it={el,decoy,x:60,y:70+Math.random()*(H-140),vx:(decoy?40:55)+Math.min(150,elapsed*3.2)+Math.random()*25,wob:Math.random()*6,done:false};
+ if(decoy){it.x=70+Math.random()*(W-200);it.vx*=(Math.random()<.5?-.5:.5)}
+ el.style.left=it.x+'px';el.style.top=it.y+'px';
+ el.addEventListener('pointerdown',e=>{e.preventDefault();hit(it)});
+ stage.appendChild(el);items.push(it);
+}
+function hit(it){
+ if(it.done||!running)return;it.done=true;
+ if(it.decoy){score=Math.max(0,score-1);say(it.el,T('oops'));fx(it.x,it.y-50,'−1','#E8638F');}
+ else{score++;it.el.innerHTML=STAY;it.el.classList.add('caught');it.el.classList.remove('bob');say(it.el,rnd(T('caught')));fx(it.x,it.y-50,'+1','#3B6EA8');}
+ $('sc').textContent=score;setTimeout(()=>{it.el.style.opacity='0';it.el.style.transition='opacity .3s'},600);setTimeout(()=>it.el.remove(),950);
+}
+function loop(t){
+ if(!running)return;const dt=Math.min(.05,(t-last)/1000||0);last=t;elapsed+=dt;
+ const W=stage.clientWidth,H=stage.clientHeight;
+ spawnT-=dt;if(spawnT<=0){spawn();spawnT=Math.max(.45,1.5-elapsed*.025)+Math.random()*.5;}
+ for(const it of items){if(it.done)continue;it.x+=it.vx*dt;it.wob+=dt*4;const y=it.y+Math.sin(it.wob)*10;it.el.style.left=it.x+'px';it.el.style.top=y+'px';
+  if(it.decoy&&(it.x<60||it.x>W-110))it.vx*=-1;
+  if(it.decoy&&Math.random()<dt*.15){it.done=true;it.el.style.transition='opacity .4s';it.el.style.opacity='0';setTimeout(()=>it.el.remove(),450)}
+  if(!it.decoy&&it.x>W-60){it.done=true;lives--;say(it.el,T('bye'),700);fx(W-80,y-40,'💔','#E8638F');setLives();setTimeout(()=>it.el.remove(),700);if(lives<=0){end();return}}}
+ items=items.filter(i=>!i.done||i.el.isConnected);raf=requestAnimationFrame(loop);
+}
+function setLives(){$('lives').textContent='💜'.repeat(Math.max(0,lives))+'🖤'.repeat(3-Math.max(0,lives))}
+function start(){items.forEach(i=>i.el.remove());items=[];score=0;lives=3;elapsed=0;spawnT=.3;last=performance.now();$('sc').textContent=0;setLives();$('start').hidden=true;$('end').hidden=true;$('copied').hidden=true;running=true;raf=requestAnimationFrame(loop)}
+function end(){running=false;cancelAnimationFrame(raf);if(score>best){best=score;try{localStorage.setItem('concubineBest',best)}catch(e){};$('best').textContent=best}
+ $('final').textContent=score;const m=T(score>=25?'e3':score>=10?'e2':'e1');$('title').textContent=m[0];$('emsg').textContent=m[1];$('end').hidden=false}
+$('go').onclick=start;$('again').onclick=start;
+$('copy').onclick=async()=>{const t=T('share',{n:score})+' '+location.href.split('?')[0];try{await navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(_){}a.remove()}$('copied').hidden=false};
+</script></body></html>
