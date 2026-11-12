@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Which KNOT character are you? 🦦"><meta property="og:description" content="A little quiz for Narnas &amp; THUR">
+<title>KNOT Quiz</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap">
+<style>
+:root{--ink:#2F4A6B;--blue:#3B6EA8;--pink:#E8638F}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Fredoka,ui-rounded,system-ui,sans-serif;color:var(--ink);background:linear-gradient(180deg,#DDF2FF,#FFF0F5)}
+main{max-width:480px;margin:0 auto;padding:28px 16px 40px}
+h1{text-align:center;margin:0;font-size:40px;line-height:1.1;color:#fff;-webkit-text-stroke:6px var(--blue);paint-order:stroke fill;text-shadow:0 5px 0 #8EC3EC}
+.sub{text-align:center;font-size:17px;margin:12px 0 22px}
+.card{background:#fff;border-radius:26px;padding:22px;box-shadow:0 8px 0 #BFE0F7}
+.prog{height:10px;background:#E6F2FC;border-radius:10px;overflow:hidden;margin-bottom:16px}
+.prog i{display:block;height:100%;background:#7FB8E8;width:0;transition:width .3s}
+.q{font-size:22px;font-weight:600;color:var(--blue);margin:0 0 16px}
+button{font:inherit;cursor:pointer;border:0}
+.opt{display:block;width:100%;text-align:left;background:#F1F8FF;color:var(--ink);font-size:17px;padding:14px 16px;border-radius:18px;margin:10px 0;box-shadow:0 4px 0 #CFE6F8}
+.opt:active{transform:translateY(3px);box-shadow:0 1px 0 #CFE6F8}
+.big{font-size:64px;text-align:center}
+.rn{text-align:center;font-size:34px;font-weight:700;color:var(--pink);margin:6px 0}
+.by{text-align:center;font-size:15px;color:#7D8DA3;margin-bottom:12px}
+.rd{font-size:18px;line-height:1.45}
+.row{display:flex;gap:10px;margin-top:18px}
+.row button{flex:1;padding:14px;border-radius:18px;font-size:17px;font-weight:600;background:var(--blue);color:#fff;box-shadow:0 4px 0 #2A5180}
+.row button.alt{background:#fff;color:var(--blue);border:2px solid #A9D3F2;box-shadow:0 4px 0 #CFE6F8}
+.foot{text-align:center;font-size:13px;color:#7D8DA3;margin-top:22px}
+.foot a{color:var(--blue)}
+</style></head><body><main>
+<h1>Which KNOT<br>character are you?</h1>
+<p class="sub">6 questions · couples included · just for fun 🦦🤍</p>
+<div class="card" id="box"></div>
+<p class="foot">Fan-made for Narnas &amp; THUR by @entreblsedesejos · not official<br><a href="../narna-games/">More games →</a></p>
+</main>
+<script>
+const R={
+ K:{e:'🐺',n:'Nakhun',by:'played by Boat 🦦',d:'Intense, protective and impossible to ignore. Like Nakhun, your big challenge is choosing to protect without controlling, and loving with your whole heart, not just instinct 🖤'},
+ P:{e:'🌙',n:'Phatsa',by:'played by Oat',d:'Soft on the surface, strong at heart. Like Phatsa, you stand between fate and your own choices, and you only trust when it\'s real 💜'},
+ O:{e:'⚡',n:'Nakhin & Ongsa',by:'played by Theme & Thee',d:'The couple that starts with conflict and mutual annoyance before it turns into something deeper. If you bicker with your crush, this is you 😂'},
+ Y:{e:'🌸',n:'Naphitch & Sangnuea',by:'played by James & Folk',d:'The younger couple with soft, sweet romantic energy. You bring the cute moments everyone needs 🥹'}
+};
+const Q=[
+ ['Someone you like walks into the room. You…',[['K','Stand closer. Nobody else gets near them 😤'],['Y','Blush and hide behind your friends 🙈'],['P','Try to act normal while your heart panics'],['O','Say something annoying on purpose 😏']]],
+ ['Your idea of a perfect date:',[['O','A competition: bowling or karaoke, loser pays 😂'],['K','Taking care of every detail so they feel safe'],['Y','Ice cream and a long walk holding hands'],['P','Somewhere quiet where you can really talk']]],
+ ['When you argue with someone you love…',[['P','You need space to figure out what YOU feel'],['O','Arguing IS the flirting'],['K','You get protective, maybe a little too much'],['Y','You make up in five minutes. You can\'t stay mad']]],
+ ['Fate or choice?',[['Y','Both, as long as it\'s sweet'],['P','Choice. I decide who I belong to'],['O','Neither. I argue with both 😂'],['K','Fate. When it\'s meant to be, you just know']]],
+ ['Your friends say you\'re…',[['K','Intense, but loyal to the end'],['O','Stubborn and impossible to ignore'],['P','Gentle on the outside, strong on the inside'],['Y','Pure sunshine']]],
+ ['Pick a vibe:',[['O','⚡ Sparks and chaos'],['Y','🌸 Spring, soft and cute'],['K','🌑 Night, tension, slow burn'],['P','🌧️ Rain on the window, deep thoughts']]]
+];
+const box=document.getElementById('box');let i=0,sc={K:0,P:0,O:0,Y:0};
+function show(){
+ if(i>=Q.length)return result();
+ const [q,os]=Q[i];
+ box.innerHTML=`<div class="prog"><i style="width:${i/Q.length*100}%"></i></div><p class="q">${i+1}. ${q}</p>`+os.map(([k,t])=>`<button class="opt" data-k="${k}">${t}</button>`).join('');
+ box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{sc[b.dataset.k]++;i++;show()});
+}
+function result(){
+ const k=['K','P','O','Y'].sort((a,b)=>sc[b]-sc[a])[0],r=R[k];
+ box.innerHTML=`<div class="big">${r.e}</div><div class="rn">You're ${r.n}!</div><div class="by">${r.by}</div><p class="rd">${r.d}</p>
+ <div class="row"><button id="again">Play again</button><button class="alt" id="copy">Copy result</button></div>`;
+ document.getElementById('again').onclick=()=>{i=0;sc={K:0,P:0,O:0,Y:0};show()};
+ document.getElementById('copy').onclick=async e=>{const t=`I got ${r.n} ${r.e} in the KNOT quiz! 🦦 Which one are you? ${location.href}`;
+  try{await navigator.clipboard.writeText(t)}catch(_){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(__){}a.remove()}
+  e.target.textContent='Copied! 🤍'};
+}
+show();
+</script></body></html>
